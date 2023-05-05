@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Chimera
 {
@@ -11,6 +12,19 @@ namespace Chimera
             Blue
         }
         
+        [HideInInspector]
+        public NavMeshAgent navMeshAgent;
+        public Faction faction;
         public CharacterConfig config;
+
+        private void Awake()
+        {
+            navMeshAgent = GetComponent<NavMeshAgent>();
+            if (navMeshAgent != null)
+            {
+                navMeshAgent.speed = config.walkSpeed;
+                navMeshAgent.angularSpeed = config.angularSpeed;
+            }
+        }
     }
 }

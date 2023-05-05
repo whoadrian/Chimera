@@ -26,7 +26,7 @@ namespace Chimera.AI
                     if (otherCharacterBehaviour == null)
                         continue;
 
-                    if (otherCharacterBehaviour.config.faction != _tree.character.config.faction)
+                    if (otherCharacterBehaviour.faction != _tree.character.faction)
                     {
                         GetRootParent().SetContext(Context.EnemyTargetKey, otherCharacterBehaviour.transform);
 

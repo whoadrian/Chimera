@@ -8,20 +8,26 @@ namespace Chimera.AI
         private PatrolWaypoints _waypointsBehaviour;
 
         private int _currentWaypointIndex = 0;
-        private bool _waiting = false;
+        private bool _waiting = true;
         private float _waitCounter = 0.0f;
         
         public PatrolNode(BehaviourTree tree) : base(tree)
         {
             _waypointsBehaviour = _tree.GetComponent<PatrolWaypoints>();
-            if (_waypointsBehaviour == null || _waypointsBehaviour.waypoints.Length == 0)
+            if (_waypointsBehaviour == null)
             {
-                Debug.LogError("PatrolNode requires a PatrolWaypoints component with at least 1 waypoint!");
+                Debug.LogError("PatrolNode requires a PatrolWaypoints component!");
             }
         }
         
         public override State Evaluate()
         {
+            if (_waypointsBehaviour.waypoints.Count == 0)
+            {
+                _state = State.Running;
+                return _state;
+            }
+            
             if (_waiting)
             {
                 _waitCounter += Time.deltaTime;
@@ -29,24 +35,16 @@ namespace Chimera.AI
                 {
                     _waiting = false;
                     _waitCounter = 0.0f;
+                    
+                    _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypointsBehaviour.waypoints.Count;
+                    _tree.character.navMeshAgent.SetDestination(_waypointsBehaviour.waypoints[_currentWaypointIndex].position);
                 }
             }
             else
             {
-                var targetWaypoint = _waypointsBehaviour.waypoints[_currentWaypointIndex];
-
-                if (Vector3.SqrMagnitude(_tree.character.transform.position - targetWaypoint.position) < 0.01f)
+                if (_tree.character.navMeshAgent.remainingDistance < 0.01f)
                 {
-                    _tree.character.transform.position = targetWaypoint.position;
                     _waiting = true;
-
-                    _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypointsBehaviour.waypoints.Length;
-                }
-                else
-                {
-                    _tree.character.transform.position = Vector3.MoveTowards(_tree.character.transform.position,
-                        targetWaypoint.position, _tree.character.config.speed * Time.deltaTime);
-                    _tree.character.transform.LookAt(targetWaypoint.position);
                 }
             }
             

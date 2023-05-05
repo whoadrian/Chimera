@@ -5,11 +5,9 @@ namespace Chimera.AI
 {
     public class GoToEnemyNode : Node
     {
-        private Transform _characterTransform;
-        
+        private Vector3 _lastEnemyPosition = Vector3.zero;        
         public GoToEnemyNode(BehaviourTree tree) : base(tree)
         {
-            _characterTransform = _tree.character.transform;
         }
         
         public override State Evaluate()
@@ -17,11 +15,10 @@ namespace Chimera.AI
             var enemyTarget = (Transform)GetContext(Context.EnemyTargetKey);
             if (enemyTarget != null)
             {
-                if (Vector3.SqrMagnitude(_characterTransform.position - enemyTarget.position) > 0.01f)
+                if (Vector3.SqrMagnitude(_lastEnemyPosition - enemyTarget.position) > 0.1f)
                 {
-                    _characterTransform.position = Vector3.MoveTowards(_characterTransform.position,
-                        enemyTarget.position, _tree.character.config.speed * Time.deltaTime);
-                    _characterTransform.LookAt(enemyTarget.position);
+                    _tree.character.navMeshAgent.SetDestination(enemyTarget.position);
+                    _lastEnemyPosition = enemyTarget.position;
                 }
             }
 
