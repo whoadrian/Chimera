@@ -30,6 +30,17 @@ namespace Chimera.AI
 
         public abstract State Evaluate();
 
+        protected Node GetRootParent()
+        {
+            var p = _parent;
+            while (p._parent != null)
+            {
+                p = p._parent;
+            }
+
+            return p;
+        }
+
         public void SetContext(string key, object value)
         {
             _context.Add(key, value);

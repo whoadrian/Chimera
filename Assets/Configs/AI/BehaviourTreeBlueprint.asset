@@ -13,5 +13,17 @@ MonoBehaviour:
   m_Name: BehaviourTreeBlueprint
   m_EditorClassIdentifier: 
   root:
-    type: Chimera.AI.TestNode
-    children: []
+    type: Chimera.AI.SelectorNode
+    children:
+    - type: Chimera.AI.SequenceNode
+      children:
+      - type: Chimera.AI.EnemyVisibleCheckNode
+        children: []
+      - type: Chimera.AI.GoToEnemyNode
+        children: []
+    - type: Chimera.AI.PatrolNode
+      children:
+      - type: Chimera.AI.EnemyVisibleCheckNode
+        children: []
+      - type: Chimera.AI.GoToEnemyNode
+        children: []
