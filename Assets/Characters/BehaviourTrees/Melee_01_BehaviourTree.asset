@@ -13,5 +13,19 @@ MonoBehaviour:
   m_Name: Melee_01_BehaviourTree
   m_EditorClassIdentifier: 
   root:
-    type: Chimera.AI.PatrolNode
-    children: []
+    type: Chimera.AI.SelectorNode
+    children:
+    - type: Chimera.AI.SequenceNode
+      children:
+      - type: Chimera.AI.EnemyAttackableCheckNode
+        children: []
+      - type: Chimera.AI.AttackNode
+        children: []
+    - type: Chimera.AI.SequenceNode
+      children:
+      - type: Chimera.AI.EnemyVisibleCheckNode
+        children: []
+      - type: Chimera.AI.GoToEnemyNode
+        children: []
+    - type: Chimera.AI.PatrolNode
+      children: []

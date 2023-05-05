@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Range_01
       objectReference: {fileID: 0}
+    - target: {fileID: 111614, guid: 2599104a4a2a5214f8407d03827b5eff, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 432436, guid: 2599104a4a2a5214f8407d03827b5eff, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -67,6 +71,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2390147396563328307}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &-2111969203154601267
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2390147396563300045}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &-1551544667138501288
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -101,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8687a8ee08b44242b2990fd82c896a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypointsParent: {fileID: 0}
   waypoints: []
 --- !u!114 &4740293952735188149
 MonoBehaviour:
@@ -128,4 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4172f1ad22e0d24183c2692b862a466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 0}
+  faction: 0
   config: {fileID: 11400000, guid: 426fc2f515f95e04ca7f0b66ce8ba93b, type: 2}

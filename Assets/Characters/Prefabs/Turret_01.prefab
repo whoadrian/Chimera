@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret_01
       objectReference: {fileID: 0}
+    - target: {fileID: 144740, guid: f8f047695f472d84c9c1786697b77ea9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 478122, guid: f8f047695f472d84c9c1786697b77ea9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -63,6 +67,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6485257908277040887}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &3943823470274248454
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6485257908277175187}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-9129790658096947501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4172f1ad22e0d24183c2692b862a466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 0}
+  faction: 0
   config: {fileID: 11400000, guid: c773e057cbdb28248bc7b44cb9735619, type: 2}
 --- !u!114 &-764796767133086
 MonoBehaviour:
