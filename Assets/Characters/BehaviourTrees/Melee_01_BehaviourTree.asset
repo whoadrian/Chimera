@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Melee_01_BehaviourTree
   m_EditorClassIdentifier: 
   root:
-    type: 
+    type: Chimera.AI.PatrolNode
     children: []

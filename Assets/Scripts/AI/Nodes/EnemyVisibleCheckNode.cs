@@ -7,7 +7,7 @@ namespace Chimera.AI
     {
         private Transform _characterTransform;
 
-        EnemyVisibleCheckNode()
+        public EnemyVisibleCheckNode(BehaviourTree tree) : base(tree)
         {
             _characterTransform = _tree.character.transform;
         }

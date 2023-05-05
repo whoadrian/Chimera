@@ -10,7 +10,7 @@ namespace Chimera.AI
 
         [HideInInspector]
         public Character character;
-        private Node _root = null;
+        private Node _root;
 
         private void Start()
         {
@@ -51,10 +51,8 @@ namespace Chimera.AI
                 return null;
             }
             
-            var node = (Node)Activator.CreateInstance(nodeType);
-            node.SetTree(this);
-            
-            return node;
+            object[] parameters = {this};
+            return (Node)Activator.CreateInstance(nodeType, parameters);
         }
     }
 }

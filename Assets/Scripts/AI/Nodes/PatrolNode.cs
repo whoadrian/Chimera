@@ -11,7 +11,7 @@ namespace Chimera.AI
         private bool _waiting = false;
         private float _waitCounter = 0.0f;
         
-        PatrolNode()
+        public PatrolNode(BehaviourTree tree) : base(tree)
         {
             _waypointsBehaviour = _tree.GetComponent<PatrolWaypoints>();
             if (_waypointsBehaviour == null || _waypointsBehaviour.waypoints.Length == 0)

@@ -7,7 +7,7 @@ namespace Chimera.AI
     {
         private Transform _characterTransform;
         
-        GoToEnemyNode()
+        public GoToEnemyNode(BehaviourTree tree) : base(tree)
         {
             _characterTransform = _tree.character.transform;
         }

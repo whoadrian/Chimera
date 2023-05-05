@@ -5,6 +5,10 @@ namespace Chimera.AI
 {
     public class AttackNode : Node
     {
+        public AttackNode(BehaviourTree tree) : base(tree)
+        {
+        }
+        
         public override State Evaluate()
         {
             var enemyTarget = (Transform)GetContext(Context.EnemyTargetKey);

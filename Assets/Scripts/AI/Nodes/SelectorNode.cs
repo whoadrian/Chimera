@@ -2,6 +2,10 @@
 {
     public class SelectorNode : Node
     {
+        public SelectorNode(BehaviourTree tree) : base(tree)
+        {
+        }
+        
         public override State Evaluate()
         {
             foreach (Node n in _children)

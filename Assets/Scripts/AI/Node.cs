@@ -16,7 +16,7 @@ namespace Chimera.AI
 
         private Dictionary<string, object> _context = new();
 
-        public void SetTree(BehaviourTree tree)
+        public Node(BehaviourTree tree)
         {
             _tree = tree;
         }

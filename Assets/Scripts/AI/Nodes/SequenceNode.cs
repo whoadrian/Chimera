@@ -3,6 +3,10 @@ namespace Chimera.AI
 {
     public class SequenceNode : Node
     {
+        public SequenceNode(BehaviourTree tree) : base(tree)
+        {
+        }
+        
         public override State Evaluate()
         {
             bool anyChildIsRunning = false;
