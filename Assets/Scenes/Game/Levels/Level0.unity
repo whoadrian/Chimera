@@ -361,6 +361,11 @@ PrefabInstance:
       propertyPath: faction
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6894011338036233225, guid: ff6a67662f3488045aa649d557101890,
+        type: 3}
+      propertyPath: waypointsParent
+      value: 
+      objectReference: {fileID: 1877252864}
     - target: {fileID: 2563187959691577351, guid: ff6a67662f3488045aa649d557101890,
         type: 3}
       propertyPath: m_RootOrder
@@ -421,6 +426,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Melee_02
       objectReference: {fileID: 0}
+    - target: {fileID: 8911915970221022596, guid: ff6a67662f3488045aa649d557101890,
+        type: 3}
+      propertyPath: blueprint
+      value: 
+      objectReference: {fileID: 11400000, guid: 786088ec5556ab644afe1297afd76a13,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff6a67662f3488045aa649d557101890, type: 3}
 --- !u!4 &319786845 stripped

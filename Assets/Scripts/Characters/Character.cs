@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Chimera
 {
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, IDamageable
     {
         public enum Faction
         {
@@ -20,6 +19,7 @@ namespace Chimera
         public CharacterConfig config;
 
         private Vector3 _lastPos;
+        private float _health;
 
         private void Awake()
         {
@@ -33,12 +33,30 @@ namespace Chimera
             }
 
             animator = GetComponent<Animator>();
+
+            _health = config.maxHealth;
+            
+            var meleeWeapon = GetComponent<MeleeWeapon>();
+            meleeWeapon?.SetDamage(config.damage);
+
+            var rangedWeapon = GetComponent<RangeWeapon>();
+            rangedWeapon?.SetDamage(config.damage);
         }
 
         private void Update()
         {
             animator.SetBool(config.walkAnimBool, Vector3.SqrMagnitude(transform.position - _lastPos) > 0f);
             _lastPos = transform.position;
+        }
+
+        public void OnDamageReceived(float damageAmount)
+        {
+            _health -= damageAmount;
+            
+            if (_health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
