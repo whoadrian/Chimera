@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chimera
 {
+    [CreateAssetMenu(menuName = "Chimera/Characters/CharacterConfig", fileName = "CharacterConfig")]
     public class CharacterConfig : ScriptableObject
     {
         [Header("General")] 

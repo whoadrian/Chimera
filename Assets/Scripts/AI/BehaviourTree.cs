@@ -3,15 +3,18 @@ using UnityEngine;
 
 namespace Chimera.AI
 {
+    [RequireComponent(typeof(Character))]
     public class BehaviourTree : MonoBehaviour
     {
         public BehaviourTreeBlueprint blueprint;
-        public Character character;
 
+        [HideInInspector]
+        public Character character;
         private Node _root = null;
 
         private void Start()
         {
+            character = GetComponent<Character>();
             _root = BuildTree(blueprint.root);
         }
 

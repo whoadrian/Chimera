@@ -12,7 +12,7 @@ namespace Chimera.AI
         public List<NodeBlueprint> children;
     }
 
-    [CreateAssetMenu(menuName = "Chimera/AI/Behaviour Tree Blueprint", fileName = "BehaviourTreeBlueprint")]
+    [CreateAssetMenu(menuName = "Chimera/Characters/AI/Behaviour Tree Blueprint", fileName = "BehaviourTreeBlueprint")]
     public class BehaviourTreeBlueprint : ScriptableObject
     {
         public NodeBlueprint root;
