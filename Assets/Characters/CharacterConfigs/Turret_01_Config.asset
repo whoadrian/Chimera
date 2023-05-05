@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3239b761610790f47a1fafcae13643e0, type: 3}
   m_Name: Turret_01_Config
   m_EditorClassIdentifier: 
-  faction: 0
-  speed: 10
+  maxHealth: 100
+  damage: 10
   fovRange: 10
   attackRange: 3
+  deathParticles: {fileID: 7116576133797462123, guid: 159f14db97d02a743809e6943a911258,
+    type: 3}
+  walkSpeed: 5
+  angularSpeed: 180
   patrolWaitTime: 1
+  walkAnimBool: Walk
+  attackAnimBool: Attack
