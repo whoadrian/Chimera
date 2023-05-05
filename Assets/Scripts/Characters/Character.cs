@@ -1,5 +1,7 @@
+using Chimera.Pooling;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
 namespace Chimera
 {
@@ -55,6 +57,12 @@ namespace Chimera
             
             if (_health <= 0)
             {
+                if (config.deathParticles)
+                {
+                    var p = ObjectPool.Instance.GetObject(config.deathParticles);
+                    p.Activate(transform.position, transform.rotation);
+                }
+
                 Destroy(gameObject);
             }
         }

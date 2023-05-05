@@ -1,3 +1,4 @@
+using Chimera.Pooling;
 using UnityEngine;
 
 namespace Chimera
@@ -10,6 +11,7 @@ namespace Chimera
         public float damage = 10;
         public float fovRange = 10;
         public float attackRange = 3;
+        public GameObject deathParticles;
         
         [Header("Speed")] 
         public float walkSpeed = 5;
