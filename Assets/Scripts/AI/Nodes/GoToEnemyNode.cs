@@ -21,6 +21,11 @@ namespace Chimera.AI
                     _lastEnemyPosition = enemyTarget.position;
                 }
             }
+            else
+            {
+                _state = State.Failure;
+                return _state;
+            }
 
             _state = State.Running;
             return _state;
