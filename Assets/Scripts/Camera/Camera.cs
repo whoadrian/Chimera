@@ -11,13 +11,13 @@ namespace Chimera
         
         private Vector3 _targetPosition;
         private Quaternion _targetRotation;
-        private float _targetFov;
+        private float _targetZoomSize;
 
         private void Start()
         {
             _targetPosition = transform.position;
             _targetRotation = transform.rotation;
-            _targetFov = Mathf.Lerp(config.minFov, config.maxFov, 0.5f);
+            _targetZoomSize = Mathf.Lerp(config.minZoomSize, config.maxZoomSize, 0.5f);
             
             viewTransform.LookAt(transform.position);
         }
@@ -30,11 +30,11 @@ namespace Chimera
 
             if (Input.GetKey(KeyCode.Q))
             {
-                inputRotationDelta = -1;
+                inputRotationDelta = 1;
             }
             else if (Input.GetKey(KeyCode.E))
             {
-                inputRotationDelta = 1;
+                inputRotationDelta = -1;
             }
             
             _targetRotation *= Quaternion.Euler(Vector3.up * config.rotationSpeed * inputRotationDelta * Time.deltaTime);
@@ -61,7 +61,7 @@ namespace Chimera
             // Up / Down
             if (Input.GetKey(KeyCode.W))
             {
-                inputMoveDelta.y = 1;       
+                inputMoveDelta.y = 1;
             }
             else if (Input.GetKey(KeyCode.S))
             {   
@@ -79,11 +79,11 @@ namespace Chimera
             #region Zoom
 
             var zoomInputDelta = -1 * Input.mouseScrollDelta.y;
-            _targetFov += config.fovSpeed * zoomInputDelta * Time.deltaTime;
-            _targetFov = Math.Clamp(_targetFov, config.minFov, config.maxFov);
+            _targetZoomSize += config.zoomSpeed * zoomInputDelta * Time.deltaTime;
+            _targetZoomSize = Math.Clamp(_targetZoomSize, config.minZoomSize, config.maxZoomSize);
 
-            viewCamera.fieldOfView =
-                Mathf.Lerp(viewCamera.fieldOfView, _targetFov, config.fovSmoothing * Time.deltaTime);
+            viewCamera.orthographicSize =
+                Mathf.Lerp(viewCamera.orthographicSize, _targetZoomSize, config.zoomSmoothing * Time.deltaTime);
 
             #endregion
         }

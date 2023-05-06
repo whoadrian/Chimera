@@ -17,7 +17,7 @@ MonoBehaviour:
   cameraAngle: 45
   rotationSpeed: 50
   rotationSmoothing: 10
-  fovSpeed: 150
-  minFov: 30
-  maxFov: 90
-  fovSmoothing: 10
+  zoomSpeed: 50
+  minZoomSize: 5
+  maxZoomSize: 15
+  zoomSmoothing: 10

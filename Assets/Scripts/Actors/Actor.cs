@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Chimera
 {
-    public class Actor : MonoBehaviour, ICombatant
+    public class Actor : MonoBehaviour, ICombatant, ISelectable, IControllable
     {
         [HideInInspector] public NavMeshAgent navMeshAgent;
         [HideInInspector] public Animator animator;
@@ -70,6 +70,26 @@ namespace Chimera
         public void Heal(float amount)
         {
             _health = Math.Min(_health + amount, MaxHealth);
+        }
+
+        #endregion
+
+        #region ISelectable
+
+        public bool Selected { get; set; }
+
+        #endregion
+
+        #region IControllable
+
+        public void OnMoveCommand(Vector3 destination)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnAttackCommand(Actor actor)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

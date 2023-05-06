@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Chimera
 {
-    public class ActorSelectableHUD : MonoBehaviour
+    public class ActorSelectionHUD : MonoBehaviour
     {
         public Image selectable;
 
@@ -36,6 +36,14 @@ namespace Chimera
 
             selectable.color = color;
             selectable.enabled = false;
+        }
+
+        private void Update()
+        {
+            if (selectable.enabled != _actor.Selected)
+            {
+                selectable.enabled = _actor.Selected;
+            }
         }
     }
 }

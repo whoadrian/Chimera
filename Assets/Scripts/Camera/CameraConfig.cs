@@ -14,10 +14,10 @@ namespace Chimera
         public float rotationSpeed = 10;
         public float rotationSmoothing = 10;
         
-        [Header("FoV")]
-        public float fovSpeed = 10;
-        public float minFov = 10;
-        public float maxFov = 100;
-        public float fovSmoothing = 10;
+        [Header("Zoom")]
+        public float zoomSpeed = 10;
+        public float minZoomSize = 10;
+        public float maxZoomSize = 100;
+        public float zoomSmoothing = 10;
     }
 }
