@@ -1,22 +1,16 @@
+using System;
+using Chimera.Combat;
 using Chimera.Pooling;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Pool;
 
 namespace Chimera
 {
-    public class Actor : MonoBehaviour, IDamageable
+    public class Actor : MonoBehaviour, ICombatant
     {
-        public enum Faction
-        {
-            Red,
-            Green,
-            Blue
-        }
-        
         [HideInInspector] public NavMeshAgent navMeshAgent;
         [HideInInspector] public Animator animator;
-        
+
         public Faction faction;
         public ActorConfig config;
 
@@ -26,7 +20,7 @@ namespace Chimera
         private void Awake()
         {
             _lastPos = transform.position;
-            
+
             navMeshAgent = GetComponent<NavMeshAgent>();
             if (navMeshAgent != null)
             {
@@ -37,7 +31,7 @@ namespace Chimera
             animator = GetComponent<Animator>();
 
             _health = config.maxHealth;
-            
+
             var meleeWeapon = GetComponent<MeleeWeapon>();
             meleeWeapon?.SetDamage(config.damage);
 
@@ -51,10 +45,16 @@ namespace Chimera
             _lastPos = transform.position;
         }
 
-        public void OnDamageReceived(float damageAmount)
+        #region ICombatant
+
+        public Faction Faction => faction;
+        public float CurrentHealth => _health;
+        public float MaxHealth => config.maxHealth;
+
+        public void DealDamage(float amount)
         {
-            _health -= damageAmount;
-            
+            _health -= amount;
+
             if (_health <= 0)
             {
                 if (config.deathParticles)
@@ -66,5 +66,12 @@ namespace Chimera
                 Destroy(gameObject);
             }
         }
+
+        public void Heal(float amount)
+        {
+            _health = Math.Min(_health + amount, MaxHealth);
+        }
+
+        #endregion
     }
 }

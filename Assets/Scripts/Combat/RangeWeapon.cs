@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Chimera
+namespace Chimera.Combat
 {
     public class RangeWeapon : MonoBehaviour
     {

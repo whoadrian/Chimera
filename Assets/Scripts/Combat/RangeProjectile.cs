@@ -1,7 +1,7 @@
 using Chimera.Pooling;
 using UnityEngine;
 
-namespace Chimera
+namespace Chimera.Combat
 {
     public class RangeProjectile : MonoBehaviour, IPoolable
     {

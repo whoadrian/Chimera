@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Chimera
+namespace Chimera.Combat
 {
     public class MeleeWeapon : MonoBehaviour
     {
@@ -32,8 +31,7 @@ namespace Chimera
 
         private void OnTriggerEnter(Collider other)
         {
-            var damageable = other.GetComponent<IDamageable>();
-            damageable?.OnDamageReceived(_damage);
+            other.GetComponent<ICombatant>()?.DealDamage(_damage);
         }
     }
 }
