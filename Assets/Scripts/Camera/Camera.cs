@@ -39,7 +39,7 @@ namespace Chimera
             
             _targetRotation *= Quaternion.Euler(Vector3.up * config.rotationSpeed * inputRotationDelta * Time.deltaTime);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation,
+            transform.rotation = Quaternion.Lerp(transform.rotation, _targetRotation,
                 config.rotationSmoothing * Time.deltaTime);
             
             #endregion
@@ -61,10 +61,10 @@ namespace Chimera
             // Up / Down
             if (Input.GetKey(KeyCode.W))
             {
-                inputMoveDelta.y = 1;
+                inputMoveDelta.y = 1;       
             }
             else if (Input.GetKey(KeyCode.S))
-            {
+            {   
                 inputMoveDelta.y = -1;
             }
             
@@ -72,7 +72,7 @@ namespace Chimera
             _targetPosition += transform.forward * (inputMoveDelta.y * config.moveSpeed * Time.deltaTime);
 
             transform.position =
-                Vector3.Slerp(transform.position, _targetPosition, config.moveSmoothing * Time.deltaTime);
+                Vector3.Lerp(transform.position, _targetPosition, config.moveSmoothing * Time.deltaTime);
             
             #endregion
 
