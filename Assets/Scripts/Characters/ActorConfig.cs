@@ -1,10 +1,9 @@
-using Chimera.Pooling;
 using UnityEngine;
 
 namespace Chimera
 {
-    [CreateAssetMenu(menuName = "Chimera/Characters/CharacterConfig", fileName = "CharacterConfig")]
-    public class CharacterConfig : ScriptableObject
+    [CreateAssetMenu(menuName = "Chimera/Actors/Actor Config", fileName = "ActorConfig")]
+    public class ActorConfig : ScriptableObject
     {
         [Header("Combat")] 
         public float maxHealth = 100;

@@ -17,7 +17,7 @@ namespace Chimera.AI
             {
                 if (Vector3.SqrMagnitude(_lastEnemyPosition - enemyTarget.position) > 0.1f)
                 {
-                    _tree.character.navMeshAgent.SetDestination(enemyTarget.position);
+                    _tree.actor.navMeshAgent.SetDestination(enemyTarget.position);
                     _lastEnemyPosition = enemyTarget.position;
                 }
             }

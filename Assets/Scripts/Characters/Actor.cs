@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 namespace Chimera
 {
-    public class Character : MonoBehaviour, IDamageable
+    public class Actor : MonoBehaviour, IDamageable
     {
         public enum Faction
         {
@@ -18,7 +18,7 @@ namespace Chimera
         [HideInInspector] public Animator animator;
         
         public Faction faction;
-        public CharacterConfig config;
+        public ActorConfig config;
 
         private Vector3 _lastPos;
         private float _health;

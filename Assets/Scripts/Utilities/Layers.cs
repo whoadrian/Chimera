@@ -2,6 +2,6 @@
 {
     public static class Layers
     {
-        public static int CharacterLayerMask => 1 << 6;
+        public static int ActorLayerMask => 1 << 6;
     }
 }

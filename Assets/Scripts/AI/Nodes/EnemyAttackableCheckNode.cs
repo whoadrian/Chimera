@@ -12,19 +12,19 @@ namespace Chimera.AI
         public override State Evaluate()
         {
             var enemyTarget = (Transform)GetContext(Context.EnemyTargetKey);
-            _tree.character.animator.SetBool(_tree.character.config.attackAnimBool, false);
+            _tree.actor.animator.SetBool(_tree.actor.config.attackAnimBool, false);
             
             if (enemyTarget != null)
             {
-                if (Vector3.Distance(_tree.character.transform.position,
-                        enemyTarget.position) < _tree.character.config.attackRange)
+                if (Vector3.Distance(_tree.actor.transform.position,
+                        enemyTarget.position) < _tree.actor.config.attackRange)
                 {
-                    if (_tree.character.navMeshAgent.remainingDistance > 0f)
+                    if (_tree.actor.navMeshAgent.remainingDistance > 0f)
                     {
-                        _tree.character.navMeshAgent.SetDestination(_tree.character.transform.position);
+                        _tree.actor.navMeshAgent.SetDestination(_tree.actor.transform.position);
                     }
                     
-                    _tree.character.animator.SetBool(_tree.character.config.attackAnimBool, true);
+                    _tree.actor.animator.SetBool(_tree.actor.config.attackAnimBool, true);
                     
                     _state = State.Success;
                     return _state;

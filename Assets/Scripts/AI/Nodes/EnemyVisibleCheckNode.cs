@@ -5,11 +5,11 @@ namespace Chimera.AI
 {
     public class EnemyVisibleCheckNode : Node
     {
-        private Transform _characterTransform;
+        private Transform _actorTransform;
 
         public EnemyVisibleCheckNode(BehaviourTree tree) : base(tree)
         {
-            _characterTransform = _tree.character.transform;
+            _actorTransform = _tree.actor.transform;
         }
 
         public override State Evaluate()
@@ -18,17 +18,17 @@ namespace Chimera.AI
             if (enemyTarget == null)
             {
                 var colliders =
-                    Physics.OverlapSphere(_characterTransform.position, _tree.character.config.fovRange, Layers.CharacterLayerMask);
+                    Physics.OverlapSphere(_actorTransform.position, _tree.actor.config.fovRange, Layers.ActorLayerMask);
                 
                 foreach (var c in colliders)
                 {
-                    var otherCharacterBehaviour = c.GetComponent<Character>();
-                    if (otherCharacterBehaviour == null)
+                    var otherActorBehaviour = c.GetComponent<Actor>();
+                    if (otherActorBehaviour == null)
                         continue;
 
-                    if (otherCharacterBehaviour.faction != _tree.character.faction)
+                    if (otherActorBehaviour.faction != _tree.actor.faction)
                     {
-                        GetRootParent().SetContext(Context.EnemyTargetKey, otherCharacterBehaviour.transform);
+                        GetRootParent().SetContext(Context.EnemyTargetKey, otherActorBehaviour.transform);
 
                         _state = State.Success;
                         return _state;

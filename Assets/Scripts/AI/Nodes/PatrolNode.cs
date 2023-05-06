@@ -31,18 +31,18 @@ namespace Chimera.AI
             if (_waiting)
             {
                 _waitCounter += Time.deltaTime;
-                if (_waitCounter >= _tree.character.config.patrolWaitTime)
+                if (_waitCounter >= _tree.actor.config.patrolWaitTime)
                 {
                     _waiting = false;
                     _waitCounter = 0.0f;
                     
                     _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypointsBehaviour.waypoints.Count;
-                    _tree.character.navMeshAgent.SetDestination(_waypointsBehaviour.waypoints[_currentWaypointIndex].position);
+                    _tree.actor.navMeshAgent.SetDestination(_waypointsBehaviour.waypoints[_currentWaypointIndex].position);
                 }
             }
             else
             {
-                if (_tree.character.navMeshAgent.remainingDistance < 0.01f)
+                if (_tree.actor.navMeshAgent.remainingDistance < 0.01f)
                 {
                     _waiting = true;
                 }
