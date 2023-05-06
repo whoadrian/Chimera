@@ -40,9 +40,9 @@ namespace Chimera
 
         private void Update()
         {
-            if (Camera.main?.transform)
+            if (UnityEngine.Camera.main?.transform)
             {
-                parent.LookAt(Camera.main.transform);
+                parent.LookAt(UnityEngine.Camera.main.transform);
             }
 
             var healthPercentage = _actor.CurrentHealth / _actor.MaxHealth;
