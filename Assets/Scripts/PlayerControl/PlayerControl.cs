@@ -87,8 +87,8 @@ namespace Chimera
                 return;
             }
 
-            var minPos = Vector2.Min(startPos, endPos);
-            var maxPos = Vector2.Max(startPos, endPos);
+            var minPos = Vector2.Min(startPos, endPos) - Vector2.one;
+            var maxPos = Vector2.Max(startPos, endPos) + Vector2.one;
 
             var plane = new Plane(Vector3.up, Vector3.zero);
             var cornerRays = new Ray[]
