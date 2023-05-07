@@ -86,12 +86,18 @@ namespace Chimera
                     s.selectable.Selected = false;
                 }
             }
-
-            var playerSelectables = RaycastSelectables(startPos, endPos, true);
-            
             _selected.Clear();
+            
+            var playerSelectables = RaycastSelectables(startPos, endPos, true);
             if (playerSelectables != null && playerSelectables.Count > 0)
             {
+                foreach (var s in playerSelectables)
+                {
+                    if (s.selectable != null)
+                    {
+                        s.selectable.Selected = true;
+                    }
+                }
                 _selected.AddRange(playerSelectables);
             }
         }
@@ -181,12 +187,7 @@ namespace Chimera
                 {
                     continue;
                 }
-
-                if (selectable != null)
-                {
-                    selectable.Selected = true;
-                }
-
+                
                 selectablesList.Add(new SelectableData() { controllable = controllable, selectable = selectable });
             }
 

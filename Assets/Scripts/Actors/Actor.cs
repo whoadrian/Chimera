@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Chimera
 {
-    public class Actor : MonoBehaviour, ICombatant, ISelectable, IControllable
+    public class Actor : MonoBehaviour, ICombatant, ISelectable
     {
         [HideInInspector] public NavMeshAgent navMeshAgent;
         [HideInInspector] public Animator animator;
@@ -68,20 +68,6 @@ namespace Chimera
         #region ISelectable
 
         public bool Selected { get; set; }
-
-        #endregion
-
-        #region IControllable
-
-        public void OnMoveCommand(Vector3 destination)
-        {
-            Debug.Log($"Move To {destination}");
-        }
-
-        public void OnAttackCommand(Actor actor)
-        {
-            Debug.Log($"Attack {actor.gameObject.name}");
-        }
 
         #endregion
     }

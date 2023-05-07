@@ -15,6 +15,12 @@ MonoBehaviour:
   root:
     type: Chimera.AI.SelectorNode
     children:
+    - type: Chimera.AI.SelectorNode
+      children:
+      - type: Chimera.AI.CommandAttackNode
+        children: []
+      - type: Chimera.AI.CommandMoveNode
+        children: []
     - type: Chimera.AI.SequenceNode
       children:
       - type: Chimera.AI.EnemyAttackableCheckNode

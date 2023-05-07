@@ -11,7 +11,7 @@ namespace Chimera.AI
         
         public override State Evaluate()
         {
-            var enemyTarget = (Transform)GetContext(Context.EnemyTargetKey);
+            var enemyTarget = (Transform)_tree.GetContext(Context.EnemyTargetKey);
             if (enemyTarget == null)
             {
                 _state = State.Failure;

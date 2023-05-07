@@ -1,15 +1,18 @@
 using System;
+using System.Collections.Generic;
+using Chimera.AI.Utilities;
 using UnityEngine;
 
 namespace Chimera.AI
 {
     [RequireComponent(typeof(Actor))]
-    public class BehaviourTree : MonoBehaviour
+    public class BehaviourTree : MonoBehaviour, IControllable
     {
         public BehaviourTreeBlueprint blueprint;
 
         [HideInInspector] public Actor actor;
         private Node _root;
+        private Dictionary<string, object> _context = new();
 
         private void Start()
         {
@@ -23,6 +26,21 @@ namespace Chimera.AI
             actor.animator.SetBool(actor.config.walkAnimBool, false);
 
             _root?.Evaluate();
+        }
+        
+        public void SetContext(string key, object value)
+        {
+            _context[key] = value;
+        }
+
+        public object GetContext(string key)
+        {
+            if (_context.TryGetValue(key, out var value))
+            {
+                return value;
+            }
+
+            return null;
         }
 
         private static Node BuildTree(NodeBlueprint parent, BehaviourTree tree)
@@ -56,5 +74,19 @@ namespace Chimera.AI
             object[] parameters = { tree };
             return (Node)Activator.CreateInstance(nodeType, parameters);
         }
+
+        #region IControllable
+
+        public void OnMoveCommand(Vector3 destination)
+        {
+            SetContext(Context.MoveToCommandKey, destination);
+        }
+
+        public void OnAttackCommand(Actor actor)
+        {
+            SetContext(Context.AttackCommandKey, actor.transform);
+        }
+
+        #endregion
     }
 }

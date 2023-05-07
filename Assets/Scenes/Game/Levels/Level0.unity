@@ -587,7 +587,7 @@ PrefabInstance:
     - target: {fileID: 2994332813727824971, guid: ff7d51db78515cc498a5ea70ea1b8879,
         type: 3}
       propertyPath: faction
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3220484161674116334, guid: ff7d51db78515cc498a5ea70ea1b8879,
         type: 3}

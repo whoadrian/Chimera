@@ -14,17 +14,13 @@ namespace Chimera.AI
         public PatrolNode(BehaviourTree tree) : base(tree)
         {
             _waypointsBehaviour = _tree.GetComponent<PatrolWaypoints>();
-            if (_waypointsBehaviour == null)
-            {
-                Debug.LogError("PatrolNode requires a PatrolWaypoints component!");
-            }
         }
         
         public override State Evaluate()
         {
-            if (_waypointsBehaviour.waypoints.Count == 0)
+            if (_waypointsBehaviour == null || _waypointsBehaviour.waypoints == null || _waypointsBehaviour.waypoints.Count == 0)
             {
-                _state = State.Running;
+                _state = State.Success;
                 return _state;
             }
             
