@@ -27,6 +27,8 @@ namespace Chimera.AI
                 return _state;
             }
 
+            _tree.actor.animator.SetBool(_tree.actor.config.walkAnimBool, true);
+            
             _state = State.Running;
             return _state;
         }

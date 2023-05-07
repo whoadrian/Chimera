@@ -9,11 +9,9 @@ namespace Chimera.AI
         
         public override State Evaluate()
         {
-            bool anyChildIsRunning = false;
-            
-            foreach (Node n in _children)
+            foreach (var childNode in _children)
             {
-                switch (n.Evaluate())
+                switch (childNode.Evaluate())
                 {
                     case State.Failure:
                         _state = State.Failure;
@@ -21,15 +19,15 @@ namespace Chimera.AI
                     case State.Success:
                         continue;
                     case State.Running:
-                        anyChildIsRunning = true;
-                        continue;
+                        _state = State.Running;
+                        return _state;
                     default:
                         _state = State.Success;
                         return _state;
                 }
             }
 
-            _state = anyChildIsRunning ? State.Running : State.Success;
+            _state = State.Success;
             return _state;
         }
     }

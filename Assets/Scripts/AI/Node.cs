@@ -43,7 +43,7 @@ namespace Chimera.AI
 
         public void SetContext(string key, object value)
         {
-            _context.Add(key, value);
+            _context[key] = value;
         }
 
         public object GetContext(string key)

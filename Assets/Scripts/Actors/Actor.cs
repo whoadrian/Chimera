@@ -14,13 +14,10 @@ namespace Chimera
         public Faction faction;
         public ActorConfig config;
 
-        private Vector3 _lastPos;
         private float _health;
 
         private void Awake()
         {
-            _lastPos = transform.position;
-
             navMeshAgent = GetComponent<NavMeshAgent>();
             if (navMeshAgent != null)
             {
@@ -37,12 +34,6 @@ namespace Chimera
 
             var rangedWeapon = GetComponent<RangeWeapon>();
             rangedWeapon?.SetDamage(config.damage);
-        }
-
-        private void Update()
-        {
-            animator.SetBool(config.walkAnimBool, Vector3.SqrMagnitude(transform.position - _lastPos) > 0f);
-            _lastPos = transform.position;
         }
 
         #region ICombatant

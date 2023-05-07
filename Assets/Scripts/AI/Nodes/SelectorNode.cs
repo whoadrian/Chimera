@@ -8,9 +8,9 @@
         
         public override State Evaluate()
         {
-            foreach (Node n in _children)
+            foreach (var childNode in _children)
             {
-                switch (n.Evaluate())
+                switch (childNode.Evaluate())
                 {
                     case State.Failure:
                         continue;

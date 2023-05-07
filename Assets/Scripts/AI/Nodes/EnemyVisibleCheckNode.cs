@@ -14,7 +14,7 @@ namespace Chimera.AI
 
         public override State Evaluate()
         {
-            var enemyTarget = GetContext(Context.EnemyTargetKey);
+            var enemyTarget = (Transform)GetContext(Context.EnemyTargetKey);
             if (enemyTarget == null)
             {
                 var colliders =
@@ -38,8 +38,15 @@ namespace Chimera.AI
                 _state = State.Failure;
                 return _state;
             }
+            
+            if (Vector3.Distance(enemyTarget.position, _tree.actor.transform.position) <
+                _tree.actor.config.fovRange)
+            {
+                _state = State.Success;
+                return _state;
+            }
 
-            _state = State.Success;
+            _state = State.Failure;
             return _state;
         }
     }

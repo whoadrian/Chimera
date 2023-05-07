@@ -12,7 +12,6 @@ namespace Chimera.AI
         public override State Evaluate()
         {
             var enemyTarget = (Transform)GetContext(Context.EnemyTargetKey);
-            _tree.actor.animator.SetBool(_tree.actor.config.attackAnimBool, false);
             
             if (enemyTarget != null)
             {

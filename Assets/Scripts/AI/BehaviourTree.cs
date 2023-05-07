@@ -8,35 +8,37 @@ namespace Chimera.AI
     {
         public BehaviourTreeBlueprint blueprint;
 
-        [HideInInspector]
-        public Actor actor;
+        [HideInInspector] public Actor actor;
         private Node _root;
 
         private void Start()
         {
             actor = GetComponent<Actor>();
-            _root = BuildTree(blueprint.root);
+            _root = BuildTree(blueprint.root, this);
         }
 
         private void Update()
         {
+            actor.animator.SetBool(actor.config.attackAnimBool, false);
+            actor.animator.SetBool(actor.config.walkAnimBool, false);
+
             _root?.Evaluate();
         }
 
-        private Node BuildTree(NodeBlueprint parent)
+        private static Node BuildTree(NodeBlueprint parent, BehaviourTree tree)
         {
-            var parentNode = BuildNode(parent.type);
+            var parentNode = BuildNode(parent.type, tree);
 
             foreach (var c in parent.children)
             {
-                var childNode = BuildTree(c);
+                var childNode = BuildTree(c, tree);
                 parentNode.AddChild(childNode);
             }
 
             return parentNode;
         }
 
-        private Node BuildNode(string nodeTypeName)
+        private static Node BuildNode(string nodeTypeName, BehaviourTree tree)
         {
             if (nodeTypeName == string.Empty)
             {
@@ -50,8 +52,8 @@ namespace Chimera.AI
                 Debug.LogError($"Node Type not recognised! {nodeTypeName}");
                 return null;
             }
-            
-            object[] parameters = {this};
+
+            object[] parameters = { tree };
             return (Node)Activator.CreateInstance(nodeType, parameters);
         }
     }
