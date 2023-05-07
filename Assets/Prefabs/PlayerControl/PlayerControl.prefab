@@ -190,4 +190,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ae4adbd7aa2034498154c63194d8bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameConfig: {fileID: 11400000, guid: dd3fbe822eba00b4188bf6b41c016bdd, type: 2}
   selectionRect: {fileID: 414528685802538440}

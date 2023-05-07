@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using Chimera.Combat;
 using UnityEngine;
 
 namespace Chimera
 {
     public class PlayerControl : MonoBehaviour
     {
+        public GameConfig gameConfig;
         public RectTransform selectionRect;
 
         private struct SelectableData
@@ -12,7 +14,7 @@ namespace Chimera
             public ISelectable selectable;
             public IControllable controllable;
         }
-        
+
         private bool _selectionActive = false;
         private Vector2 _startSelectionPos = Vector2.zero;
         private List<SelectableData> _selected = new();
@@ -79,8 +81,9 @@ namespace Chimera
                     s.selectable.Selected = false;
                 }
             }
+
             _selected.Clear();
-            
+
             var camera = UnityEngine.Camera.main;
             if (camera == null)
             {
@@ -91,42 +94,32 @@ namespace Chimera
             var maxPos = Vector2.Max(startPos, endPos) + Vector2.one;
 
             var plane = new Plane(Vector3.up, Vector3.zero);
-            var cornerRays = new Ray[]
-            {
-                camera.ScreenPointToRay(minPos),
-                camera.ScreenPointToRay(maxPos),
-                camera.ScreenPointToRay(new Vector2(minPos.x, maxPos.y)),
-                camera.ScreenPointToRay(new Vector2(minPos.y, maxPos.x))
-            };
+            var minPosRay = camera.ScreenPointToRay(minPos);
+            var maxPosRay = camera.ScreenPointToRay(maxPos);
 
-            float maxDistance = -1;
-            foreach (var ray in cornerRays)
-            {
-                if (!plane.Raycast(ray, out var enter))
-                {
-                    return;
-                }
-
-                maxDistance = Mathf.Max(maxDistance, enter);
-            }
-
-            if (maxDistance <= 0)
+            if (!plane.Raycast(minPosRay, out var minPosEnter) || !plane.Raycast(maxPosRay, out var maxPosEnter))
             {
                 return;
             }
 
-            var centrePos = Vector2.Lerp(minPos, maxPos, 0.5f);
-            var centreRay = camera.ScreenPointToRay(centrePos);
-            var centreRayOrigin = centreRay.origin;
-            var maxPosRayOrigin = cornerRays[1].origin;
-            var boxExtents = new Vector3(maxPosRayOrigin.x - centreRayOrigin.x, maxPosRayOrigin.y - centreRayOrigin.y, maxDistance * 0.5f);
-            var colliders = Physics.OverlapBox(centreRay.GetPoint(maxDistance * 0.5f), boxExtents,
+            var maxDistance = Mathf.Max(minPosEnter, maxPosEnter);
+            var centrePosRay = camera.ScreenPointToRay(Vector2.Lerp(minPos, maxPos, 0.5f));
+            var boxExtents = new Vector3(maxPosRay.origin.x - centrePosRay.origin.x,
+                maxPosRay.origin.y - centrePosRay.origin.y, maxDistance * 0.5f);
+
+            var colliders = Physics.OverlapBox(centrePosRay.GetPoint(maxDistance * 0.5f), boxExtents,
                 camera.transform.rotation, Layers.ActorLayerMask);
 
             foreach (var c in colliders)
             {
                 var selectable = c.GetComponent<ISelectable>();
                 var controllable = c.GetComponent<IControllable>();
+                var combatant = c.GetComponent<ICombatant>();
+
+                if (combatant != null && combatant.Faction != gameConfig.playerFaction)
+                {
+                    continue;
+                }
 
                 if (selectable == null && controllable == null)
                 {
@@ -137,8 +130,8 @@ namespace Chimera
                 {
                     selectable.Selected = true;
                 }
-                
-                _selected.Add(new SelectableData() {controllable = controllable, selectable = selectable});
+
+                _selected.Add(new SelectableData() { controllable = controllable, selectable = selectable });
             }
         }
     }

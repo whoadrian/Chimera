@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Chimera.Combat;
 using UnityEngine;
 
 namespace Chimera
@@ -13,5 +14,7 @@ namespace Chimera
             get => PlayerPrefs.HasKey(LevelPref) ? PlayerPrefs.GetInt(LevelPref) : 0;
             set => PlayerPrefs.SetInt(LevelPref, value);
         }
+
+        public Faction playerFaction = Faction.Red;
     }
 }
