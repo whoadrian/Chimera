@@ -48,6 +48,11 @@ namespace Chimera
                     OnSelect(_startSelectionPos, Input.mousePosition);
                 }
             }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                OnCommand(Input.mousePosition);
+            }
         }
 
         private void ActivateSelectionRect(Vector2 startPos)
@@ -82,12 +87,54 @@ namespace Chimera
                 }
             }
 
+            var playerSelectables = RaycastSelectables(startPos, endPos, true);
+            
             _selected.Clear();
+            if (playerSelectables != null && playerSelectables.Count > 0)
+            {
+                _selected.AddRange(playerSelectables);
+            }
+        }
 
+        private void OnCommand(Vector2 pos)
+        {
+            var enemySelectables = RaycastSelectables(pos, pos, false);
+            if (enemySelectables != null && enemySelectables.Count > 0)
+            {
+                foreach (var selectable in enemySelectables)
+                {
+                    var enemyActor = (Actor)selectable.selectable;
+                    if (enemyActor != null)
+                    {
+                        foreach (var selected in _selected)
+                        {
+                            selected.controllable?.OnAttackCommand(enemyActor);
+                        }
+
+                        return;
+                    }
+                }
+            }
+            
+            var plane = new Plane(Vector3.up, Vector3.zero);
+            var posRay = UnityEngine.Camera.main.ScreenPointToRay(pos);
+
+            if (plane.Raycast(posRay, out var enter))
+            {
+                var moveToPos = posRay.GetPoint(enter);
+                foreach (var selected in _selected)
+                {
+                    selected.controllable?.OnMoveCommand(moveToPos);
+                }
+            }
+        }
+
+        private List<SelectableData> RaycastSelectables(Vector3 startPos, Vector2 endPos, bool playerFactionMask)
+        {
             var camera = UnityEngine.Camera.main;
             if (camera == null)
             {
-                return;
+                return null;
             }
 
             var minPos = Vector2.Min(startPos, endPos) - Vector2.one;
@@ -99,7 +146,7 @@ namespace Chimera
 
             if (!plane.Raycast(minPosRay, out var minPosEnter) || !plane.Raycast(maxPosRay, out var maxPosEnter))
             {
-                return;
+                return null;
             }
 
             var maxDistance = Mathf.Max(minPosEnter, maxPosEnter);
@@ -110,15 +157,24 @@ namespace Chimera
             var colliders = Physics.OverlapBox(centrePosRay.GetPoint(maxDistance * 0.5f), boxExtents,
                 camera.transform.rotation, Layers.ActorLayerMask);
 
+            var selectablesList = new List<SelectableData>();
+            
             foreach (var c in colliders)
             {
                 var selectable = c.GetComponent<ISelectable>();
                 var controllable = c.GetComponent<IControllable>();
                 var combatant = c.GetComponent<ICombatant>();
 
-                if (combatant != null && combatant.Faction != gameConfig.playerFaction)
+                if (combatant != null)
                 {
-                    continue;
+                    if (playerFactionMask && combatant.Faction != gameConfig.playerFaction)
+                    {
+                        continue;
+                    }
+                    else if (!playerFactionMask && combatant.Faction == gameConfig.playerFaction)
+                    {
+                        continue;
+                    }
                 }
 
                 if (selectable == null && controllable == null)
@@ -131,8 +187,10 @@ namespace Chimera
                     selectable.Selected = true;
                 }
 
-                _selected.Add(new SelectableData() { controllable = controllable, selectable = selectable });
+                selectablesList.Add(new SelectableData() { controllable = controllable, selectable = selectable });
             }
+
+            return selectablesList;
         }
     }
 }

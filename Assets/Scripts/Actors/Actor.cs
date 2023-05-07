@@ -84,12 +84,12 @@ namespace Chimera
 
         public void OnMoveCommand(Vector3 destination)
         {
-            throw new NotImplementedException();
+            Debug.Log($"Move To {destination}");
         }
 
         public void OnAttackCommand(Actor actor)
         {
-            throw new NotImplementedException();
+            Debug.Log($"Attack {actor.gameObject.name}");
         }
 
         #endregion
