@@ -43,6 +43,8 @@ namespace Chimera
         
         private void OnLevelFinished(bool winState)
         {
+            _currentLevel.OnLevelFinished = null;
+            
             SceneManager.UnloadSceneAsync(_currentLevelScene);
             _currentLevel = null;
 
@@ -54,7 +56,7 @@ namespace Chimera
         {
             var endLevelScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
             
-            foreach (var go in _currentLevelScene.GetRootGameObjects())
+            foreach (var go in endLevelScene.GetRootGameObjects())
             {
                 var menu = go.GetComponent<EndLevelMenu>();
                 if (menu == null)

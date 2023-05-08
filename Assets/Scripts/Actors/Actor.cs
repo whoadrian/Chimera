@@ -14,9 +14,10 @@ namespace Chimera
         public Faction faction;
         public ActorConfig config;
 
+        private int _id;
         private float _health;
 
-        private void Awake()
+        private void Start()
         {
             _health = config.maxHealth;
             
@@ -31,6 +32,13 @@ namespace Chimera
             
             GetComponent<MeleeWeapon>()?.Setup(this);
             GetComponent<RangeWeapon>()?.Setup(this);
+
+            _id = Level.Instance.RegisterActor(this);
+        }
+
+        private void OnDestroy()
+        {
+            Level.Instance.UnregisterActor(_id);
         }
 
         #region ICombatant
