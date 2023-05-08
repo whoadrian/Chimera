@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage: 10
-  fovRange: 10
-  attackRange: 3
+  fovRange: 30
+  attackRange: 20
+  projectileSpeed: 20
   deathParticles: {fileID: 7116576133797462123, guid: 159f14db97d02a743809e6943a911258,
     type: 3}
   walkSpeed: 5

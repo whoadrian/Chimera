@@ -18,6 +18,8 @@ namespace Chimera
 
         private void Awake()
         {
+            _health = config.maxHealth;
+            
             navMeshAgent = GetComponent<NavMeshAgent>();
             if (navMeshAgent != null)
             {
@@ -26,14 +28,9 @@ namespace Chimera
             }
 
             animator = GetComponent<Animator>();
-
-            _health = config.maxHealth;
-
-            var meleeWeapon = GetComponent<MeleeWeapon>();
-            meleeWeapon?.SetDamage(config.damage);
-
-            var rangedWeapon = GetComponent<RangeWeapon>();
-            rangedWeapon?.SetDamage(config.damage);
+            
+            GetComponent<MeleeWeapon>()?.Setup(config.damage, faction);
+            GetComponent<RangeWeapon>()?.Setup(config.damage, faction, config.projectileSpeed, config.attackRange);
         }
 
         #region ICombatant

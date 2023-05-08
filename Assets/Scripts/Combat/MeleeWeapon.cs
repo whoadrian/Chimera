@@ -7,6 +7,7 @@ namespace Chimera.Combat
         public Collider damageCollider;
 
         private float _damage;
+        private Faction _faction;
 
         private void Awake()
         {
@@ -14,9 +15,10 @@ namespace Chimera.Combat
             DeactivateWeapon();
         }
 
-        public void SetDamage(float damage)
+        public void Setup(float damage, Faction faction)
         {
             _damage = damage;
+            _faction = faction;
         }
 
         public void ActivateWeapon()

@@ -10,6 +10,7 @@ namespace Chimera
         public float damage = 10;
         public float fovRange = 10;
         public float attackRange = 3;
+        public float projectileSpeed = 100;
         public GameObject deathParticles;
         
         [Header("Speed")] 

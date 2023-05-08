@@ -8,7 +8,7 @@ namespace Chimera.AI
         public AttackNode(BehaviourTree tree) : base(tree)
         {
         }
-        
+
         public override State Evaluate()
         {
             var enemyTarget = (Transform)_tree.GetContext(Context.EnemyTargetKey);
@@ -17,6 +17,12 @@ namespace Chimera.AI
                 _state = State.Failure;
                 return _state;
             }
+
+            // Face enemy
+            var faceDirection = enemyTarget.position - _tree.actor.transform.position;
+            faceDirection.y = 0;
+            _tree.actor.transform.rotation = Quaternion.Lerp(_tree.actor.transform.rotation,
+                Quaternion.LookRotation(faceDirection), _tree.actor.config.angularSpeed * Time.deltaTime);
 
             _state = State.Running;
             return _state;
