@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage: 10
-  fovRange: 10
-  attackRange: 3
+  fovRange: 80
+  attackRange: 80
+  projectileSpeed: 50
   deathParticles: {fileID: 7116576133797462123, guid: 159f14db97d02a743809e6943a911258,
     type: 3}
-  walkSpeed: 5
-  angularSpeed: 180
-  patrolWaitTime: 1
-  walkAnimBool: Walk
+  walkSpeed: 0
+  angularSpeed: 50
+  patrolWaitTime: 0
+  walkAnimBool: 
   attackAnimBool: Attack

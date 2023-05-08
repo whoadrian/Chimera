@@ -21,7 +21,7 @@ namespace Chimera.AI
             // Face enemy
             var faceDirection = enemyTarget.position - _tree.actor.transform.position;
             faceDirection.y = 0;
-            _tree.actor.transform.rotation = Quaternion.Lerp(_tree.actor.transform.rotation,
+            _tree.actor.transform.rotation = Quaternion.RotateTowards(_tree.actor.transform.rotation,
                 Quaternion.LookRotation(faceDirection), _tree.actor.config.angularSpeed * Time.deltaTime);
 
             _state = State.Running;

@@ -10,28 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 725ef279faedd714281eb5039b838008, type: 3}
-  m_Name: Melee_01_BehaviourTree
+  m_Name: Turret_BehaviourTree
   m_EditorClassIdentifier: 
   root:
     type: Chimera.AI.SelectorNode
     children:
-    - type: Chimera.AI.SelectorNode
-      children:
-      - type: Chimera.AI.CommandAttackNode
-        children: []
-      - type: Chimera.AI.CommandMoveNode
-        children: []
-    - type: Chimera.AI.SequenceNode
-      children:
-      - type: Chimera.AI.EnemyAttackableCheckNode
-        children: []
-      - type: Chimera.AI.AttackNode
-        children: []
+    - type: Chimera.AI.CommandAttackNode
+      children: []
     - type: Chimera.AI.SequenceNode
       children:
       - type: Chimera.AI.EnemyVisibleCheckNode
         children: []
-      - type: Chimera.AI.GoToEnemyNode
+      - type: Chimera.AI.EnemyAttackableCheckNode
         children: []
-    - type: Chimera.AI.PatrolNode
-      children: []
+      - type: Chimera.AI.AttackNode
+        children: []

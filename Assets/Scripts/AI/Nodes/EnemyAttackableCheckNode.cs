@@ -18,12 +18,12 @@ namespace Chimera.AI
                 if (Vector3.Distance(_tree.actor.transform.position,
                         enemyTarget.position) < _tree.actor.config.attackRange)
                 {
-                    if (_tree.actor.navMeshAgent.remainingDistance > 0f)
+                    if (_tree.actor.navMeshAgent != null && _tree.actor.navMeshAgent.remainingDistance > 0f)
                     {
                         _tree.actor.navMeshAgent.SetDestination(_tree.actor.transform.position);
                     }
                     
-                    _tree.actor.animator.SetBool(_tree.actor.config.attackAnimBool, true);
+                    _tree.actor.animator?.SetBool(_tree.actor.config.attackAnimBool, true);
                     
                     _state = State.Success;
                     return _state;

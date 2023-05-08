@@ -89,6 +89,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 94
   m_CollisionDetection: 0
+--- !u!136 &2105976901096834431
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836017711387637236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.03
+  m_Height: 2.87
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.73, z: 0}
 --- !u!195 &-8835152373780662297
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -139,22 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e1ae008d4316054f958929babf243af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueprint: {fileID: 11400000, guid: 72fe9a015c107a74d81b109563568157, type: 2}
+  blueprint: {fileID: 11400000, guid: 295341c3fa34f0a4291ae644f985166d, type: 2}
   actor: {fileID: 0}
---- !u!136 &2105976901096834431
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3836017711387637236}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.03
-  m_Height: 2.87
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.73, z: 0}
 --- !u!1001 &5474908652160164420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ PrefabInstance:
     - target: {fileID: 7878905151679131855, guid: 5a654eff7d178204ca8edee557c5aa58,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7878905151679131855, guid: 5a654eff7d178204ca8edee557c5aa58,
         type: 3}

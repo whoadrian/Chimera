@@ -22,8 +22,15 @@ namespace Chimera.AI
 
         private void Update()
         {
-            actor.animator.SetBool(actor.config.attackAnimBool, false);
-            actor.animator.SetBool(actor.config.walkAnimBool, false);
+            if (actor.config.attackAnimBool != string.Empty)
+            {
+                actor.animator.SetBool(actor.config.attackAnimBool, false);
+            }
+
+            if (actor.config.walkAnimBool != string.Empty)
+            {
+                actor.animator.SetBool(actor.config.walkAnimBool, false);
+            }
 
             _root?.Evaluate();
         }
