@@ -29,8 +29,8 @@ namespace Chimera
 
             animator = GetComponent<Animator>();
             
-            GetComponent<MeleeWeapon>()?.Setup(config.damage, faction);
-            GetComponent<RangeWeapon>()?.Setup(config.damage, faction, config.projectileSpeed, config.attackRange);
+            GetComponent<MeleeWeapon>()?.Setup(this);
+            GetComponent<RangeWeapon>()?.Setup(this);
         }
 
         #region ICombatant

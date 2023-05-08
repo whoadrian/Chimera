@@ -47,7 +47,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2990812378046610240
 MeshRenderer:
@@ -111,6 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d9a24b303fa704fb7f2e4690eb4574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAreaPrefab: {fileID: 430703538869137409, guid: 2841a4044b168534dbc21a97c5d0fdc3,
+    type: 3}
+  hitParticlesPrefab: {fileID: 7116576133797462123, guid: 159f14db97d02a743809e6943a911258,
+    type: 3}
 --- !u!54 &2098598663298676238
 Rigidbody:
   m_ObjectHideFlags: 0

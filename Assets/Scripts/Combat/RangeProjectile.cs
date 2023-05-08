@@ -6,6 +6,9 @@ namespace Chimera.Combat
     [RequireComponent(typeof(Rigidbody))]
     public class RangeProjectile : MonoBehaviour, IPoolable
     {
+        public GameObject damageAreaPrefab;
+        public GameObject hitParticlesPrefab;
+        
         private float _damage;
         private Faction _faction;
         private float _speed;
@@ -38,12 +41,30 @@ namespace Chimera.Combat
         
         private void OnHit(ICombatant victim = null)
         {
-            if (victim != null && victim.Faction != _faction)
-            {
-                victim.DealDamage(_damage);
-            }
-            
             gameObject.SetActive(false);
+
+            if (damageAreaPrefab != null)
+            {
+                var dmgAreaPoolable = ObjectPool.Instance.GetObject(damageAreaPrefab);
+                if (dmgAreaPoolable != null)
+                {
+                    var dmgArea = (DamageArea)dmgAreaPoolable;
+                    if (dmgArea)
+                    {
+                        dmgArea.Setup(_damage, _faction);
+                    }
+                    dmgAreaPoolable.Activate(transform.position, transform.rotation);
+                }
+            }
+
+            if (hitParticlesPrefab != null)
+            {
+                var particlesPoolable = ObjectPool.Instance.GetObject(hitParticlesPrefab);
+                if (particlesPoolable != null)
+                {
+                    particlesPoolable.Activate(transform.position, transform.rotation);
+                }
+            }
         }
 
         public void Setup(float damage, Faction faction, float speed, float maxDistance)

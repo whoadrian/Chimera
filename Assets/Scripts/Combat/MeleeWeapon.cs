@@ -6,8 +6,7 @@ namespace Chimera.Combat
     {
         public Collider damageCollider;
 
-        private float _damage;
-        private Faction _faction;
+        private Actor _owner;
 
         private void Awake()
         {
@@ -15,10 +14,9 @@ namespace Chimera.Combat
             DeactivateWeapon();
         }
 
-        public void Setup(float damage, Faction faction)
+        public void Setup(Actor owner)
         {
-            _damage = damage;
-            _faction = faction;
+            _owner = owner;
         }
 
         public void ActivateWeapon()
@@ -33,7 +31,13 @@ namespace Chimera.Combat
 
         private void OnTriggerEnter(Collider other)
         {
-            other.GetComponent<ICombatant>()?.DealDamage(_damage);
+            var victim = other.GetComponent<ICombatant>();
+            if (victim == null || victim.Faction == _owner.faction)
+            {
+                return;
+            }
+            
+            victim.DealDamage(_owner.config.damage);
         }
     }
 }

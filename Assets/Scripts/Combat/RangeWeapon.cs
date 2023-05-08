@@ -8,17 +8,11 @@ namespace Chimera.Combat
         public Transform[] projectileSpawnpoints;
         public GameObject projectilePrefab;
 
-        private float _damage;
-        private Faction _faction;
-        private float _projectileSpeed;
-        private float _projectileMaxDistance;
+        private Actor _owner;
         
-        public void Setup(float damage, Faction faction, float projectileSpeed, float projectileMaxDistance)
+        public void Setup(Actor owner)
         {
-            _damage = damage;
-            _faction = faction;
-            _projectileSpeed = projectileSpeed;
-            _projectileMaxDistance = projectileMaxDistance;
+            _owner = owner;
         }
 
         public void ActivateWeapon(int spawnpointIndex = 0)
@@ -31,7 +25,7 @@ namespace Chimera.Combat
 
             var projectile = ObjectPool.Instance.GetObject(projectilePrefab);
             var rangedProjectile = (RangeProjectile)projectile;
-            rangedProjectile.Setup(_damage, _faction, _projectileSpeed, _projectileMaxDistance);
+            rangedProjectile.Setup(_owner.config.damage, _owner.faction, _owner.config.projectileSpeed, _owner.config.attackRange);
             
             projectile.Activate(projectileSpawnpoints[spawnpointIndex].position,
                 projectileSpawnpoints[spawnpointIndex].rotation);
