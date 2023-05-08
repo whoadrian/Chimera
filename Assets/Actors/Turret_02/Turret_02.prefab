@@ -89,19 +89,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 94
   m_CollisionDetection: 0
---- !u!135 &-9016918404713512355
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3836017711387637236}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &-8835152373780662297
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -154,6 +141,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blueprint: {fileID: 11400000, guid: 72fe9a015c107a74d81b109563568157, type: 2}
   actor: {fileID: 0}
+--- !u!136 &2105976901096834431
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836017711387637236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.03
+  m_Height: 2.87
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.73, z: 0}
 --- !u!1001 &5474908652160164420
 PrefabInstance:
   m_ObjectHideFlags: 0

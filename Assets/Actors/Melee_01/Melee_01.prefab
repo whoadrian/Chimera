@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4191336886948561724}
   - component: {fileID: 1053553407924101156}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: DamageCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,8 +132,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1
---- !u!135 &8853622776422018305
-SphereCollider:
+--- !u!136 &546612292892713953
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -142,9 +142,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.52
+  m_Height: 2.63
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!114 &-2979018802539025699
 MonoBehaviour:
   m_ObjectHideFlags: 0
