@@ -7,7 +7,7 @@ namespace Chimera.AI
     {
         public static BehaviourTreeRunner Instance { get; private set; }
 
-        public static int InvalidId = -1;
+        public const int InvalidId = -1;
         private static int _treeIdCounter = 0;
         private Dictionary<int, BehaviourTree> _trees = new();
 

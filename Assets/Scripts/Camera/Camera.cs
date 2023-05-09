@@ -13,6 +13,9 @@ namespace Chimera
         private Quaternion _targetRotation;
         private float _targetZoomSize;
 
+        private Vector2 _minBoundaryPos = new Vector2(float.MinValue, float.MinValue);
+        private Vector2 _maxBoundaryPos = new Vector2(float.MaxValue, float.MaxValue);
+
         private void Start()
         {
             _targetPosition = transform.position;
@@ -20,6 +23,17 @@ namespace Chimera
             _targetZoomSize = Mathf.Lerp(config.minZoomSize, config.maxZoomSize, 0.5f);
             
             viewTransform.LookAt(transform.position);
+            
+            if (Level.Instance?.minLevelBoundary && Level.Instance?.maxLevelBoundary)
+            {
+                var minPos = Vector3.Min(Level.Instance.minLevelBoundary.position,
+                    Level.Instance.maxLevelBoundary.position);
+                _minBoundaryPos = new Vector2(minPos.x, minPos.z);
+                
+                var maxPos = Vector3.Max(Level.Instance.minLevelBoundary.position,
+                    Level.Instance.maxLevelBoundary.position);
+                _maxBoundaryPos = new Vector2(maxPos.x, maxPos.z);
+            }
         }
 
         private void Update()
@@ -70,6 +84,9 @@ namespace Chimera
             
             _targetPosition += transform.right * (inputMoveDelta.x * config.moveSpeed * Time.deltaTime);
             _targetPosition += transform.forward * (inputMoveDelta.y * config.moveSpeed * Time.deltaTime);
+
+            _targetPosition.x = Mathf.Clamp(_targetPosition.x, _minBoundaryPos.x, _maxBoundaryPos.x);
+            _targetPosition.z = Mathf.Clamp(_targetPosition.z, _minBoundaryPos.y, _maxBoundaryPos.y);
 
             transform.position =
                 Vector3.Lerp(transform.position, _targetPosition, config.moveSmoothing * Time.deltaTime);
