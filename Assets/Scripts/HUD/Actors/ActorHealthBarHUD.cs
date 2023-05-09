@@ -38,8 +38,9 @@ namespace Chimera
                 parent.rotation = cameraTransform.rotation * Quaternion.Euler(Vector3.up * 180);
             }
 
-            var healthPercentage = _actor.CurrentHealth / _actor.MaxHealth;
-            healthAmountImg.fillAmount = healthPercentage;
+            var scale = healthAmountImg.transform.localScale;
+            scale.x = _actor.CurrentHealth / _actor.MaxHealth;
+            healthAmountImg.transform.localScale = scale;
         }
     }
 }
