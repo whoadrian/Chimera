@@ -16,9 +16,10 @@ MonoBehaviour:
   moveSmoothing: 5
   rotationSpeed: 50
   rotationSmoothing: 10
-  rotationMouseSensitivity: 0.25
+  rotationMouseSensitivity: 0.2
+  rotationMouseInvert: 1
   zoomSpeed: 25
   zoomSmoothing: 10
   zoomScrollSensitivity: 2
   minZoomSize: 5
-  maxZoomSize: 15
+  maxZoomSize: 30

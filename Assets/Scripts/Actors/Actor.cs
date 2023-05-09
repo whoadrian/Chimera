@@ -88,7 +88,7 @@ namespace Chimera
 
 #if UNITY_EDITOR
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = faction switch
             {
