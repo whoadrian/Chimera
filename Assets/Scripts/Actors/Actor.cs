@@ -4,6 +4,10 @@ using Chimera.Pooling;
 using UnityEngine;
 using UnityEngine.AI;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Chimera
 {
     public class Actor : MonoBehaviour, ICombatant, ISelectable
@@ -20,7 +24,7 @@ namespace Chimera
         private void Start()
         {
             _health = config.maxHealth;
-            
+
             navMeshAgent = GetComponent<NavMeshAgent>();
             if (navMeshAgent != null)
             {
@@ -29,7 +33,7 @@ namespace Chimera
             }
 
             animator = GetComponent<Animator>();
-            
+
             GetComponent<MeleeWeapon>()?.Setup(this);
             GetComponent<RangeWeapon>()?.Setup(this);
 
@@ -75,5 +79,33 @@ namespace Chimera
         public bool Selected { get; set; }
 
         #endregion
+
+#if UNITY_EDITOR
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = faction switch
+            {
+                Faction.Blue => Color.blue,
+                Faction.Green => Color.green,
+                Faction.Red => Color.red,
+                _ => throw new NotImplementedException()
+            };
+
+            Gizmos.DrawSphere(transform.position + Vector3.up * 3, 0.4f);
+            
+            if (config != null)
+            {
+                Handles.color = Color.red;
+                Handles.DrawWireDisc(transform.position, Vector3.up, config.attackRange);
+                Handles.DrawLine(transform.position, transform.position - transform.forward * config.attackRange);
+
+                Handles.color = Color.green;
+                Handles.DrawWireDisc(transform.position, Vector3.up, config.fovRange);
+                Handles.DrawLine(transform.position, transform.position + transform.forward * config.fovRange);
+            }
+        }
+
+#endif
     }
 }
