@@ -16,6 +16,8 @@ namespace Chimera
         private Vector2 _minBoundaryPos = new Vector2(float.MinValue, float.MinValue);
         private Vector2 _maxBoundaryPos = new Vector2(float.MaxValue, float.MaxValue);
 
+        private Vector3 _rightClickPressPosition;
+        
         private void Start()
         {
             _targetPosition = transform.position;
@@ -49,6 +51,17 @@ namespace Chimera
             else if (Input.GetKey(KeyCode.E))
             {
                 inputRotationDelta = -1;
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                _rightClickPressPosition = Input.mousePosition;
+            }
+            else if (Input.GetMouseButton(1))
+            {
+                inputRotationDelta = _rightClickPressPosition.x - Input.mousePosition.x;
+                inputRotationDelta *= config.rotationMouseSensitivity * (config.rotationMouseInvert ? -1 : 1);
+                _rightClickPressPosition = Input.mousePosition;
             }
             
             _targetRotation *= Quaternion.Euler(Vector3.up * config.rotationSpeed * inputRotationDelta * Time.deltaTime);
@@ -95,7 +108,17 @@ namespace Chimera
 
             #region Zoom
 
-            var zoomInputDelta = -1 * Input.mouseScrollDelta.y;
+            var zoomInputDelta = -1 * Input.mouseScrollDelta.y * config.zoomScrollSensitivity;
+            
+            if (Input.GetKey(KeyCode.R))
+            {
+                zoomInputDelta = -1f;
+            }
+            else if (Input.GetKey(KeyCode.F))
+            {
+                zoomInputDelta = 1f;
+            }
+            
             _targetZoomSize += config.zoomSpeed * zoomInputDelta * Time.deltaTime;
             _targetZoomSize = Math.Clamp(_targetZoomSize, config.minZoomSize, config.maxZoomSize);
 

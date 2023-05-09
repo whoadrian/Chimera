@@ -9,6 +9,9 @@ namespace Chimera
         public GameConfig gameConfig;
         public RectTransform selectionRect;
 
+        private float _maxCommandDragRadiusSqr = 150.0f;
+        private Vector3 _commandPressPosition;
+
         private struct SelectableData
         {
             public ISelectable selectable;
@@ -51,6 +54,11 @@ namespace Chimera
 
             if (Input.GetMouseButtonDown(1))
             {
+                _commandPressPosition = Input.mousePosition;
+            }
+            else if (Input.GetMouseButtonUp(1) &&
+                     Vector3.SqrMagnitude(_commandPressPosition - Input.mousePosition) < _maxCommandDragRadiusSqr)
+            {
                 OnCommand(Input.mousePosition);
             }
         }
@@ -86,8 +94,9 @@ namespace Chimera
                     s.selectable.Selected = false;
                 }
             }
+
             _selected.Clear();
-            
+
             var playerSelectables = RaycastSelectables(startPos, endPos, true);
             if (playerSelectables != null && playerSelectables.Count > 0)
             {
@@ -98,6 +107,7 @@ namespace Chimera
                         s.selectable.Selected = true;
                     }
                 }
+
                 _selected.AddRange(playerSelectables);
             }
         }
@@ -121,7 +131,7 @@ namespace Chimera
                     }
                 }
             }
-            
+
             var plane = new Plane(Vector3.up, Vector3.zero);
             var posRay = UnityEngine.Camera.main.ScreenPointToRay(pos);
 
@@ -164,7 +174,7 @@ namespace Chimera
                 camera.transform.rotation, Layers.ActorLayerMask);
 
             var selectablesList = new List<SelectableData>();
-            
+
             foreach (var c in colliders)
             {
                 var selectable = c.GetComponent<ISelectable>();
@@ -187,7 +197,7 @@ namespace Chimera
                 {
                     continue;
                 }
-                
+
                 selectablesList.Add(new SelectableData() { controllable = controllable, selectable = selectable });
             }
 

@@ -12,10 +12,13 @@ namespace Chimera
         [Header("Rotation")] 
         public float rotationSpeed = 10;
         public float rotationSmoothing = 10;
+        public float rotationMouseSensitivity = 1;
+        public bool rotationMouseInvert = false;
         
         [Header("Zoom")]
         public float zoomSpeed = 10;
         public float zoomSmoothing = 10;
+        public float zoomScrollSensitivity = 1;
         public float minZoomSize = 10;
         public float maxZoomSize = 100;
     }
