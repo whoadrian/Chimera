@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game/Levels/Level_Desert.unity
     guid: e4922189276b57f42bffdfcf9d65c8cd
+  - enabled: 1
+    path: Assets/Scenes/Game/Levels/Level_Island.unity
+    guid: d568d037edd945a408fcd7620058e468
   m_configObjects: {}
