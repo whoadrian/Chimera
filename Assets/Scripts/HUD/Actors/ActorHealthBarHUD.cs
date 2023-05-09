@@ -19,30 +19,23 @@ namespace Chimera
 
         private void Start()
         {
-            Color color;
-            switch (_actor.Faction)
+            var color = _actor.Faction switch
             {
-                case Faction.Red: 
-                    color = Color.red;
-                    break;
-                case Faction.Green: 
-                    color = Color.green;
-                    break;
-                case Faction.Blue: 
-                    color = Color.blue;
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
+                Faction.Red => Color.red,
+                Faction.Green => Color.green,
+                Faction.Blue => Color.blue,
+                _ => throw new NotImplementedException()
+            };
 
             healthAmountImg.color = color;
         }
 
         private void Update()
         {
-            if (UnityEngine.Camera.main?.transform)
+            var cameraTransform = UnityEngine.Camera.main?.transform;
+            if (cameraTransform)
             {
-                parent.LookAt(UnityEngine.Camera.main.transform);
+                parent.rotation = cameraTransform.rotation * Quaternion.Euler(Vector3.up * 180);
             }
 
             var healthPercentage = _actor.CurrentHealth / _actor.MaxHealth;
