@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 7fd9b43328ecbc74dae68b419f28c1e8, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 6e2d27a2fbc572649827b9dfc1f0e899, type: 2}
 --- !u!1001 &1237168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3645,7 +3645,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &782148552
 PrefabInstance:
@@ -3954,7 +3954,7 @@ Transform:
   - {fileID: 785409175}
   - {fileID: 1247285932}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &874709134
 PrefabInstance:
@@ -5932,7 +5932,7 @@ Transform:
   - {fileID: 218834167}
   - {fileID: 1706385304}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1227304761
 PrefabInstance:
@@ -9067,7 +9067,7 @@ Transform:
   - {fileID: 1349043550}
   - {fileID: 1754210651}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1927122444
 PrefabInstance:
@@ -10882,7 +10882,7 @@ PrefabInstance:
     - target: {fileID: 414528685908228876, guid: dd0b814c7e6f7a047af63c336d628f9e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 414528685908228876, guid: dd0b814c7e6f7a047af63c336d628f9e,
         type: 3}
@@ -11070,7 +11070,7 @@ PrefabInstance:
     - target: {fileID: 9041499634361082462, guid: 1ee06b2d6c87e184a8fd0bf86162cabf,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9041499634361082462, guid: 1ee06b2d6c87e184a8fd0bf86162cabf,
         type: 3}
