@@ -18,7 +18,7 @@ namespace Chimera
         public Faction faction;
         public ActorConfig config;
 
-        private int _id;
+        private int _id = Level.InvalidActorId;
         private float _health;
 
         private void Start()
@@ -37,12 +37,18 @@ namespace Chimera
             GetComponent<MeleeWeapon>()?.Setup(this);
             GetComponent<RangeWeapon>()?.Setup(this);
 
-            _id = Level.Instance.RegisterActor(this);
+            if (Level.Instance)
+            {
+                _id = Level.Instance.RegisterActor(this);
+            }
         }
 
         private void OnDestroy()
         {
-            Level.Instance.UnregisterActor(_id);
+            if (_id != Level.InvalidActorId && Level.Instance != null)
+            {
+                Level.Instance.UnregisterActor(_id);
+            }
         }
 
         #region ICombatant

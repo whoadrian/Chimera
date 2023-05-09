@@ -16,6 +16,7 @@ namespace Chimera
             Instance = this;
         }
 
+        public static int InvalidActorId = -1;
         private static int _actorIdCounter = 0;
         private Dictionary<int, Actor> _actors = new();
 

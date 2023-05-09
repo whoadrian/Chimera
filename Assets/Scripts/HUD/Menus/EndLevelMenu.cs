@@ -20,7 +20,10 @@ namespace Chimera
 
         public void OnExitClicked()
         {
-            GameState.Instance.CurrentState = GameState.State.MainMenu;
+            if (GameState.Instance)
+            {
+                GameState.Instance.CurrentState = GameState.State.MainMenu;
+            }
         }
     }
 }

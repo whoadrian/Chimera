@@ -10,23 +10,31 @@ namespace Chimera
         private void Start()
         {
             continueButton.interactable = GameConfig.Level > 0;
-            GameState.Instance.CurrentState = GameState.State.MainMenu;
+            SetGameState(GameState.State.MainMenu);
         }
 
         public void OnContinueClicked()
         {
-            Chimera.GameState.Instance.CurrentState = GameState.State.Playing;
+            SetGameState(GameState.State.Playing);
         }
         
         public void OnNewGameClicked()
         {
             GameConfig.Level = 0;
-            Chimera.GameState.Instance.CurrentState = GameState.State.Playing;
+            SetGameState(GameState.State.Playing);
         }
         
         public void OnQuitClicked()
         {
-            Chimera.GameState.Instance.CurrentState = GameState.State.Exit;
+            SetGameState(GameState.State.Exit);
+        }
+        
+        private void SetGameState(GameState.State state)
+        {
+            if (GameState.Instance)
+            {
+                GameState.Instance.CurrentState = state;
+            }
         }
     }
 }

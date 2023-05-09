@@ -13,18 +13,25 @@ namespace Chimera.AI
         [HideInInspector] public Actor actor;
         private Node _root;
         private Dictionary<string, object> _context = new();
-        private int _id;
+        private int _id = BehaviourTreeRunner.InvalidId;
 
         private void Start()
         {
             actor = GetComponent<Actor>();
             _root = BuildTree(blueprint.root, this);
-            _id = BehaviourTreeRunner.Instance.RegisterBehaviourTree(this);
+
+            if (BehaviourTreeRunner.Instance)
+            {
+                _id = BehaviourTreeRunner.Instance.RegisterBehaviourTree(this);
+            }
         }
 
         private void OnDestroy()
         {
-            BehaviourTreeRunner.Instance.UnregisterBehaviourTree(_id);
+            if (_id != BehaviourTreeRunner.InvalidId)
+            {
+                BehaviourTreeRunner.Instance.UnregisterBehaviourTree(_id);
+            }
         }
 
         public void Evaluate()

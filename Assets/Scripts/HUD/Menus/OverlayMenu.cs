@@ -7,17 +7,25 @@ namespace Chimera
     {
         private void Start()
         {
-            GameState.Instance.CurrentState = GameState.State.Paused;
+            SetGameState(GameState.State.Paused);
         }
 
         public void OnResumeClicked()
         {
-            GameState.Instance.CurrentState = GameState.State.Playing;
+            SetGameState(GameState.State.Playing);
         }
 
         public void OnQuitClicked()
         {
-            GameState.Instance.CurrentState = GameState.State.MainMenu;
+            SetGameState(GameState.State.MainMenu);
+        }
+
+        private void SetGameState(GameState.State state)
+        {
+            if (GameState.Instance)
+            {
+                GameState.Instance.CurrentState = state;
+            }
         }
     }
 }

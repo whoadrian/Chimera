@@ -6,32 +6,7 @@ namespace Chimera
 {
     public class GameState : MonoBehaviour
     {
-        private static GameState _instance;
-        public static GameState Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    const string name = "GameState";
-                    var go = GameObject.Find(name);
-                    
-                    if (go == null)
-                    {
-                        go = new GameObject(name);
-                        _instance = go.AddComponent<GameState>();
-                        DontDestroyOnLoad(go);
-                    }
-                    else
-                    {
-                        _instance = go.GetComponent<GameState>();
-                        DontDestroyOnLoad(go);
-                    }
-                }
-                
-                return _instance;
-            }
-        }
+        public static GameState Instance { get; private set; }
         
         public enum State
         {
@@ -97,6 +72,12 @@ namespace Chimera
                 
                 _currentState = value;
             }
+        }
+
+        private void Awake()
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()

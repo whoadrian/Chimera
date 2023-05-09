@@ -14,7 +14,12 @@ namespace Chimera
         private void Start()
         {
             Assert.IsTrue(levelsConfig != null && levelsConfig.levels.Count > 0);
-            GameState.Instance.CurrentState = GameState.State.Playing;
+
+            if (GameState.Instance)
+            {
+                GameState.Instance.CurrentState = GameState.State.Playing;
+            }
+
             LoadLevel(GameConfig.Level);
         }
 
