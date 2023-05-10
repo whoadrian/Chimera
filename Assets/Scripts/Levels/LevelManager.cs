@@ -74,20 +74,6 @@ namespace Chimera
                     SceneManager.UnloadSceneAsync(endLevelScene);
                     LoadLevel(GameConfig.Level);
                 };
-
-                menu.LoadNextLevel = () =>
-                {
-                    SceneManager.UnloadSceneAsync(endLevelScene);
-                    
-                    var levelIndex = GameConfig.Level + 1;
-                    if (levelIndex >= levelsConfig.levels.Count)
-                    {
-                        levelIndex = 0;
-                    }
-
-                    GameConfig.Level = levelIndex;
-                    LoadLevel(levelIndex);
-                };
             }
         }
     }
