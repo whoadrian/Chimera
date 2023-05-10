@@ -35,14 +35,14 @@ namespace Chimera
             }
 
             selectable.color = color;
-            selectable.enabled = false;
+            selectable.gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            if (selectable.enabled != _actor.Selected)
+            if (selectable.gameObject.activeSelf != _actor.Selected)
             {
-                selectable.enabled = _actor.Selected;
+                selectable.gameObject.SetActive(_actor.Selected);
             }
         }
     }
