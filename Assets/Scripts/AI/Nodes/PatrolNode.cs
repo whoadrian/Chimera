@@ -39,6 +39,7 @@ namespace Chimera.AI
             else
             {
                 _tree.actor.animator.SetBool(_tree.actor.config.walkAnimBool, true);
+                _tree.SetContext(Context.DestinationKey, _tree.actor.navMeshAgent.destination);
                 
                 if (_tree.actor.navMeshAgent.remainingDistance < 0.01f)
                 {

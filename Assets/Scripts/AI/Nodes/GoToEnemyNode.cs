@@ -15,6 +15,7 @@ namespace Chimera.AI
             if (enemyTarget != null)
             {
                 _tree.actor.navMeshAgent.SetDestination(enemyTarget.position);
+                _tree.SetContext(Context.DestinationKey, enemyTarget.position);
             }
             else
             {

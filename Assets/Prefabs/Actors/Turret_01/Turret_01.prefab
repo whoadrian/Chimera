@@ -29,7 +29,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6485257908276829533}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6485257908277040887
 PrefabInstance:
@@ -230,6 +230,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6485257908276829533}
     m_Modifications:
+    - target: {fileID: 4502633510400507092, guid: 5a654eff7d178204ca8edee557c5aa58,
+        type: 3}
+      propertyPath: actorBehaviourTree
+      value: 
+      objectReference: {fileID: -764796767133086}
     - target: {fileID: 7878905151679131855, guid: 5a654eff7d178204ca8edee557c5aa58,
         type: 3}
       propertyPath: m_RootOrder

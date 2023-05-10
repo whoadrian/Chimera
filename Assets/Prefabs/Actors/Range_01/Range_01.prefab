@@ -166,7 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8687a8ee08b44242b2990fd82c896a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypointsParent: {fileID: 0}
   waypoints: []
 --- !u!114 &4740293952735188149
 MonoBehaviour:
@@ -227,6 +226,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2390147396563485703}
     m_Modifications:
+    - target: {fileID: 4502633510400507092, guid: 5a654eff7d178204ca8edee557c5aa58,
+        type: 3}
+      propertyPath: actorBehaviourTree
+      value: 
+      objectReference: {fileID: 4740293952735188149}
     - target: {fileID: 7878905151679131855, guid: 5a654eff7d178204ca8edee557c5aa58,
         type: 3}
       propertyPath: m_RootOrder

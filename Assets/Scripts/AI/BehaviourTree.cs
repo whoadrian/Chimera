@@ -36,6 +36,8 @@ namespace Chimera.AI
 
         public void Evaluate()
         {
+            SetContext(Context.DestinationKey, null);
+            
             if (actor.config.attackAnimBool != string.Empty)
             {
                 actor.animator.SetBool(actor.config.attackAnimBool, false);

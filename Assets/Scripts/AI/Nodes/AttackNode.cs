@@ -24,6 +24,8 @@ namespace Chimera.AI
             _tree.actor.transform.rotation = Quaternion.RotateTowards(_tree.actor.transform.rotation,
                 Quaternion.LookRotation(faceDirection), _tree.actor.config.angularSpeed * Time.deltaTime);
 
+            _tree.SetContext(Context.DestinationKey, enemyTarget.position);
+            
             _state = State.Running;
             return _state;
         }

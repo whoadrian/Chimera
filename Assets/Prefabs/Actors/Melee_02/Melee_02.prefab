@@ -166,6 +166,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2563187959691577351}
     m_Modifications:
+    - target: {fileID: 4502633510400507092, guid: 5a654eff7d178204ca8edee557c5aa58,
+        type: 3}
+      propertyPath: actorBehaviourTree
+      value: 
+      objectReference: {fileID: 8911915970221022596}
     - target: {fileID: 7878905151679131855, guid: 5a654eff7d178204ca8edee557c5aa58,
         type: 3}
       propertyPath: m_RootOrder
