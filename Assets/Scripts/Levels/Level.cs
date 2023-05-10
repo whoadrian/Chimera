@@ -50,7 +50,7 @@ namespace Chimera
 
             foreach (var a in _actors)
             {
-                if (a.Value == null)
+                if (a.Value == null || a.Value.config.excludeFromWinLoseState)
                 {
                     continue;
                 }

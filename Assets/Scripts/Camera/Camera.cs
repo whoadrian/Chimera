@@ -5,9 +5,11 @@ namespace Chimera
 {
     public class Camera : MonoBehaviour
     {
-        public CameraConfig config;
+        public GameConfig gameConfig;
+        public CameraConfig cameraConfig;
         public Transform viewTransform;
         public UnityEngine.Camera viewCamera;
+        public CameraSpawnpoint[] spawnpoints;
         
         private Vector3 _targetPosition;
         private Quaternion _targetRotation;
@@ -20,9 +22,20 @@ namespace Chimera
         
         private void Start()
         {
+            foreach (var s in spawnpoints)
+            {
+                if (s.faction != gameConfig.playerFaction)
+                {
+                    continue;
+                }
+                
+                transform.position = s.transform.position;
+                transform.rotation = s.transform.rotation;
+            }
+            
             _targetPosition = transform.position;
             _targetRotation = transform.rotation;
-            _targetZoomSize = Mathf.Lerp(config.minZoomSize, config.maxZoomSize, 0.5f);
+            _targetZoomSize = Mathf.Lerp(cameraConfig.minZoomSize, cameraConfig.maxZoomSize, 0.5f);
             
             viewTransform.LookAt(transform.position);
             
@@ -60,14 +73,14 @@ namespace Chimera
             else if (Input.GetMouseButton(1))
             {
                 inputRotationDelta = _rightClickPressPosition.x - Input.mousePosition.x;
-                inputRotationDelta *= config.rotationMouseSensitivity * (config.rotationMouseInvert ? -1 : 1);
+                inputRotationDelta *= cameraConfig.rotationMouseSensitivity * (cameraConfig.rotationMouseInvert ? -1 : 1);
                 _rightClickPressPosition = Input.mousePosition;
             }
             
-            _targetRotation *= Quaternion.Euler(Vector3.up * config.rotationSpeed * inputRotationDelta * Time.deltaTime);
+            _targetRotation *= Quaternion.Euler(Vector3.up * cameraConfig.rotationSpeed * inputRotationDelta * Time.deltaTime);
 
             transform.rotation = Quaternion.Lerp(transform.rotation, _targetRotation,
-                config.rotationSmoothing * Time.deltaTime);
+                cameraConfig.rotationSmoothing * Time.deltaTime);
             
             #endregion
             
@@ -95,20 +108,20 @@ namespace Chimera
                 inputMoveDelta.y = -1;
             }
             
-            _targetPosition += transform.right * (inputMoveDelta.x * config.moveSpeed * Time.deltaTime);
-            _targetPosition += transform.forward * (inputMoveDelta.y * config.moveSpeed * Time.deltaTime);
+            _targetPosition += transform.right * (inputMoveDelta.x * cameraConfig.moveSpeed * Time.deltaTime);
+            _targetPosition += transform.forward * (inputMoveDelta.y * cameraConfig.moveSpeed * Time.deltaTime);
 
             _targetPosition.x = Mathf.Clamp(_targetPosition.x, _minBoundaryPos.x, _maxBoundaryPos.x);
             _targetPosition.z = Mathf.Clamp(_targetPosition.z, _minBoundaryPos.y, _maxBoundaryPos.y);
 
             transform.position =
-                Vector3.Lerp(transform.position, _targetPosition, config.moveSmoothing * Time.deltaTime);
+                Vector3.Lerp(transform.position, _targetPosition, cameraConfig.moveSmoothing * Time.deltaTime);
             
             #endregion
 
             #region Zoom
 
-            var zoomInputDelta = -1 * Input.mouseScrollDelta.y * config.zoomScrollSensitivity;
+            var zoomInputDelta = -1 * Input.mouseScrollDelta.y * cameraConfig.zoomScrollSensitivity;
             
             if (Input.GetKey(KeyCode.R))
             {
@@ -119,11 +132,11 @@ namespace Chimera
                 zoomInputDelta = 1f;
             }
             
-            _targetZoomSize += config.zoomSpeed * zoomInputDelta * Time.deltaTime;
-            _targetZoomSize = Math.Clamp(_targetZoomSize, config.minZoomSize, config.maxZoomSize);
+            _targetZoomSize += cameraConfig.zoomSpeed * zoomInputDelta * Time.deltaTime;
+            _targetZoomSize = Math.Clamp(_targetZoomSize, cameraConfig.minZoomSize, cameraConfig.maxZoomSize);
 
             viewCamera.orthographicSize =
-                Mathf.Lerp(viewCamera.orthographicSize, _targetZoomSize, config.zoomSmoothing * Time.deltaTime);
+                Mathf.Lerp(viewCamera.orthographicSize, _targetZoomSize, cameraConfig.zoomSmoothing * Time.deltaTime);
 
             #endregion
         }

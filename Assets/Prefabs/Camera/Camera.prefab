@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9195aab061254c14699a06443c1e394d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: cd809f2ffa889514d95b28855818927c, type: 2}
+  gameConfig: {fileID: 11400000, guid: dd3fbe822eba00b4188bf6b41c016bdd, type: 2}
+  cameraConfig: {fileID: 11400000, guid: cd809f2ffa889514d95b28855818927c, type: 2}
   viewTransform: {fileID: 5397501961137956002}
   viewCamera: {fileID: 5397501961137956001}
+  spawnpoints: []
 --- !u!1 &5397501961137956007
 GameObject:
   m_ObjectHideFlags: 0

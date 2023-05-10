@@ -12,6 +12,7 @@ namespace Chimera
         public float attackRange = 3;
         public float projectileSpeed = 100;
         public GameObject deathParticles;
+        public bool excludeFromWinLoseState = false;
         
         [Header("Speed")] 
         public float walkSpeed = 5;

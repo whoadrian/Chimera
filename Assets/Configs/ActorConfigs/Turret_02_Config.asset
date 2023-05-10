@@ -19,6 +19,7 @@ MonoBehaviour:
   projectileSpeed: 50
   deathParticles: {fileID: 7116576133797462123, guid: 159f14db97d02a743809e6943a911258,
     type: 3}
+  excludeFromWinLoseState: 1
   walkSpeed: 0
   angularSpeed: 50
   patrolWaitTime: 0
