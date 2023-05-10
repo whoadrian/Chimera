@@ -1,5 +1,6 @@
 ﻿using Chimera.AI.Utilities;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Chimera.AI
 {
@@ -22,6 +23,12 @@ namespace Chimera.AI
                 
                 foreach (var c in colliders)
                 {
+                    if (NavMesh.Raycast(_tree.actor.transform.position, c.transform.position, out _,
+                            Layers.DefaultLayerMask))
+                    {
+                        continue;
+                    }
+                    
                     var otherActorBehaviour = c.GetComponent<Actor>();
                     if (otherActorBehaviour == null)
                         continue;

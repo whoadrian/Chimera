@@ -15,29 +15,21 @@ namespace Chimera.AI
         {
             if (_tree.GetContext(Context.MoveToCommandKey) != null)
             {
+                _tree.SetContext(Context.EnemyTargetKey, null);
+                
                 var pos = (Vector3)_tree.GetContext(Context.MoveToCommandKey);
-                _tree.SetContext(Context.MoveToCommandKey, null);
-                _tree.SetContext(Context.AttackCommandKey, null);
                 
                 _tree.actor.navMeshAgent.SetDestination(pos);
-                _moving = true;
-                _state = State.Running;
-                return _state;
-            }
+                _tree.actor.animator.SetBool(_tree.actor.config.walkAnimBool, true);
+                _tree.SetContext(Context.DestinationKey, pos);
 
-            if (_moving)
-            {
-                if (_tree.actor.navMeshAgent.remainingDistance > 0.1f)
+                if (_tree.actor.navMeshAgent.remainingDistance < 0.5f)
                 {
-                    _tree.actor.animator.SetBool(_tree.actor.config.walkAnimBool, true);
-                    _tree.SetContext(Context.DestinationKey, _tree.actor.navMeshAgent.destination);
-                    
-                    _state = State.Running;
-                    return _state;
+                    _tree.SetContext(Context.MoveToCommandKey, null);
                 }
                 
-                _moving = false;
-                _state = State.Success;
+                _moving = true;
+                _state = State.Running;
                 return _state;
             }
 

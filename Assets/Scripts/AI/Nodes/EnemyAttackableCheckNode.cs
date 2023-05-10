@@ -1,5 +1,6 @@
 ﻿using Chimera.AI.Utilities;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Chimera.AI
 {
@@ -15,7 +16,8 @@ namespace Chimera.AI
             
             if (enemyTarget != null)
             {
-                if (Vector3.Distance(_tree.actor.transform.position,
+                if (!NavMesh.Raycast(_tree.actor.transform.position, enemyTarget.position, out _, Layers.DefaultLayerMask) &&
+                    Vector3.Distance(_tree.actor.transform.position,
                         enemyTarget.position) < _tree.actor.config.attackRange)
                 {
                     if (_tree.actor.navMeshAgent != null && _tree.actor.navMeshAgent.remainingDistance > 0f)
