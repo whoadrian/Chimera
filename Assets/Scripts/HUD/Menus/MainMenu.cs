@@ -1,6 +1,10 @@
 using Chimera.Combat;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Chimera
 {
     public class MainMenu : MonoBehaviour
@@ -34,37 +38,39 @@ namespace Chimera
 
         public void OnDesertLevelClicked()
         {
-            GameConfig.Level = 0;
-            OnLevelSelected();
+            OnLevelSelected(0);
         }
 
         public void OnIslandLevelClicked()
         {
-            GameConfig.Level = 1;
-            OnLevelSelected();
+            OnLevelSelected(1);
         }
 
         public void OnRedFactionClicked()
         {
-            gameConfig.playerFaction = Faction.Red;
-            OnFactionSelected();
+            OnFactionSelected(Faction.Red);
         }
 
         public void OnBlueFactionClicked()
         {
-            gameConfig.playerFaction = Faction.Blue;
-            OnFactionSelected();
+            OnFactionSelected(Faction.Blue);
         }
         
-        private void OnLevelSelected()
+        private void OnLevelSelected(int levelId)
         {
+            GameConfig.Level = levelId;
+            
             mainMenu.SetActive(false);
             levelSelect.SetActive(false);
             factionSelect.SetActive(true);
         }
 
-        private void OnFactionSelected()
+        private void OnFactionSelected(Faction faction)
         {
+            gameConfig.playerFaction = faction;
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(gameConfig);
+#endif
             SetGameState(GameState.State.Playing);
         }
         

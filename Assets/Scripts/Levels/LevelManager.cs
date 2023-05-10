@@ -54,7 +54,10 @@ namespace Chimera
             _currentLevel = null;
 
             var asyncLoader = SceneManager.LoadSceneAsync(winState ? levelsConfig.winScene.name : levelsConfig.loseScene.name, new LoadSceneParameters(LoadSceneMode.Additive));
-            asyncLoader.completed += OnEndLevelSceneLoaded;
+            if (asyncLoader != null)
+            {
+                asyncLoader.completed += OnEndLevelSceneLoaded;
+            }
         }
 
         private void OnEndLevelSceneLoaded(AsyncOperation asyncOp)
