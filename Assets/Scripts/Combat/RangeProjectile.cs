@@ -7,7 +7,9 @@ namespace Chimera.Combat
     public class RangeProjectile : MonoBehaviour, IPoolable
     {
         public GameObject damageAreaPrefab;
+        public GameObject spawnParticlesPrefab;
         public GameObject hitParticlesPrefab;
+        public Vector3 hitParticlesOffset;
         
         private float _damage;
         private Faction _faction;
@@ -62,7 +64,7 @@ namespace Chimera.Combat
                 var particlesPoolable = ObjectPool.Instance.GetObject(hitParticlesPrefab);
                 if (particlesPoolable != null)
                 {
-                    particlesPoolable.Activate(transform.position, transform.rotation);
+                    particlesPoolable.Activate(transform.position + hitParticlesOffset, transform.rotation);
                 }
             }
         }
@@ -89,6 +91,15 @@ namespace Chimera.Combat
 
             _spawnPosition = position;
             gameObject.SetActive(true);
+            
+            if (spawnParticlesPrefab != null)
+            {
+                var particlesPoolable = ObjectPool.Instance.GetObject(spawnParticlesPrefab);
+                if (particlesPoolable != null)
+                {
+                    particlesPoolable.Activate(position, rotation);
+                }
+            }
         }
         
         #endregion

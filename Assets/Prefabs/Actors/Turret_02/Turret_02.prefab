@@ -207,7 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpawnpoints:
   - {fileID: 4237608590992470304}
-  projectilePrefab: {fileID: 2583929853450035582, guid: a3c240275fd4e4c43890307bba562400,
+  projectilePrefab: {fileID: 2583929853450035582, guid: f72bb3be12feae348a154f72e5aec23a,
     type: 3}
 --- !u!114 &3422485806224938499
 MonoBehaviour:

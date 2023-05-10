@@ -276,7 +276,7 @@ MonoBehaviour:
   - {fileID: 3441697613307041185}
   - {fileID: 5181789804739376094}
   - {fileID: 4721659216720610701}
-  projectilePrefab: {fileID: 2583929853450035582, guid: a3c240275fd4e4c43890307bba562400,
+  projectilePrefab: {fileID: 2583929853450035582, guid: 6fec81dc1c6715647a6f4905079a8b77,
     type: 3}
 --- !u!4 &7420900083557460093 stripped
 Transform:

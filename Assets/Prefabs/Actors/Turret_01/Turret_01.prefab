@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpawnpoints:
   - {fileID: 5933905860986648800}
-  projectilePrefab: {fileID: 2583929853450035582, guid: a3c240275fd4e4c43890307bba562400,
+  projectilePrefab: {fileID: 2583929853450035582, guid: 63abf83f07224964d9e634a15de9dfc8,
     type: 3}
 --- !u!1001 &9059011070920729790
 PrefabInstance:

@@ -17,8 +17,9 @@ MonoBehaviour:
   fovRange: 15
   attackRange: 2
   projectileSpeed: 100
-  deathParticles: {fileID: 7116576133797462123, guid: 159f14db97d02a743809e6943a911258,
+  deathParticles: {fileID: 6765323809701106583, guid: 973a2ded1fc6d624fb606d720510743d,
     type: 3}
+  excludeFromWinLoseState: 0
   walkSpeed: 5
   angularSpeed: 180
   patrolWaitTime: 1

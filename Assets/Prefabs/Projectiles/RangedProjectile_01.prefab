@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5277712633125737678}
   - component: {fileID: 4695286099772356490}
   - component: {fileID: 2098598663298676238}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RangedProjectile_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,8 +113,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAreaPrefab: {fileID: 430703538869137409, guid: 2841a4044b168534dbc21a97c5d0fdc3,
     type: 3}
+  spawnParticlesPrefab: {fileID: 3932375655303585356, guid: 9b902515ac834da43bdc8c6b8b002156,
+    type: 3}
   hitParticlesPrefab: {fileID: 7116576133797462123, guid: 159f14db97d02a743809e6943a911258,
     type: 3}
+  hitParticlesOffset: {x: 0, y: 0, z: 0}
 --- !u!54 &2098598663298676238
 Rigidbody:
   m_ObjectHideFlags: 0
