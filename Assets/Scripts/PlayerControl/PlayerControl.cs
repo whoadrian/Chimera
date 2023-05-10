@@ -1,6 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Chimera.Combat;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Chimera
 {
@@ -153,8 +158,8 @@ namespace Chimera
                 return null;
             }
 
-            var minPos = Vector2.Min(startPos, endPos) - Vector2.one;
-            var maxPos = Vector2.Max(startPos, endPos) + Vector2.one;
+            var minPos = Vector2.Min(startPos, endPos);
+            var maxPos = Vector2.Max(startPos, endPos);
 
             var plane = new Plane(Vector3.up, Vector3.zero);
             var minPosRay = camera.ScreenPointToRay(minPos);
@@ -165,10 +170,14 @@ namespace Chimera
                 return null;
             }
 
-            var maxDistance = Mathf.Max(minPosEnter, maxPosEnter);
-            var centrePosRay = camera.ScreenPointToRay(Vector2.Lerp(minPos, maxPos, 0.5f));
-            var boxExtents = new Vector3(maxPosRay.origin.x - centrePosRay.origin.x,
-                maxPosRay.origin.y - centrePosRay.origin.y, maxDistance * 0.5f);
+            var maxDistance = Mathf.Max(minPosEnter, maxPosEnter) + 50;
+            var centrePos = Vector2.Lerp(minPos, maxPos, 0.5f);
+            var centrePosRay = camera.ScreenPointToRay(centrePos);
+            var rightPosRay = camera.ScreenPointToRay(new Vector2(maxPos.x, centrePos.y));
+            var topPosRay = camera.ScreenPointToRay(new Vector2(centrePos.x, maxPos.y));
+            
+            var boxExtents = new Vector3(Vector3.Distance(centrePosRay.origin, rightPosRay.origin),
+                Vector3.Distance(centrePosRay.origin, topPosRay.origin), maxDistance * 0.5f);
 
             var colliders = Physics.OverlapBox(centrePosRay.GetPoint(maxDistance * 0.5f), boxExtents,
                 camera.transform.rotation, Layers.ActorLayerMask);
@@ -203,5 +212,36 @@ namespace Chimera
 
             return selectablesList;
         }
+
+#if UNITY_EDITOR
+
+        private void OnDrawGizmos()
+        {
+            var camera = UnityEngine.Camera.main;
+            if (camera == null)
+            {
+                return;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                var minPos = Vector3.Min(_startSelectionPos, Input.mousePosition);
+                var maxPos = Vector3.Max(_startSelectionPos, Input.mousePosition);
+                
+                var centrePosRay = camera.ScreenPointToRay(Vector2.Lerp(minPos, maxPos, 0.5f));
+                var topLeftRay = camera.ScreenPointToRay(new Vector2(minPos.x, maxPos.y));
+                var bottomLeftRay = camera.ScreenPointToRay(new Vector2(minPos.x, minPos.y));
+                var topRightRay = camera.ScreenPointToRay(new Vector2(maxPos.x, maxPos.y));
+                var bottomRightRay = camera.ScreenPointToRay(new Vector2(maxPos.x, minPos.y));
+                
+                Gizmos.DrawLine(centrePosRay.origin, centrePosRay.GetPoint(100));
+                Gizmos.DrawLine(topLeftRay.origin, topLeftRay.GetPoint(100));
+                Gizmos.DrawLine(bottomLeftRay.origin, bottomLeftRay.GetPoint(100));
+                Gizmos.DrawLine(topRightRay.origin, topRightRay.GetPoint(100));
+                Gizmos.DrawLine(bottomRightRay.origin, bottomRightRay.GetPoint(100));
+            }
+        }
+
+#endif
     }
 }
