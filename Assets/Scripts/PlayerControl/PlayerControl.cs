@@ -9,7 +9,7 @@ namespace Chimera
         public GameConfig gameConfig;
         public RectTransform selectionRect;
 
-        private float _maxCommandDragRadiusSqr = 150.0f;
+        private const float _maxCommandDragRadiusSqr = 150.0f;
         private Vector3 _commandPressPosition;
 
         private struct SelectableData

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 725ef279faedd714281eb5039b838008, type: 3}
-  m_Name: Melee_BehaviourTree
+  m_Name: RangedPatrol_BehaviourTree 1
   m_EditorClassIdentifier: 
   root:
     type: Chimera.AI.SelectorNode
@@ -28,6 +28,12 @@ MonoBehaviour:
       - type: Chimera.AI.AttackNode
         children: []
     - type: Chimera.AI.SequenceNode
+      children:
+      - type: Chimera.AI.EnemyVisibleCheckNode
+        children: []
+      - type: Chimera.AI.GoToEnemyNode
+        children: []
+    - type: Chimera.AI.PatrolNode
       children:
       - type: Chimera.AI.EnemyVisibleCheckNode
         children: []

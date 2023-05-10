@@ -228,17 +228,3 @@ MonoBehaviour:
   animator: {fileID: 0}
   faction: 0
   config: {fileID: 11400000, guid: bdf1b914858ed944483f0766ffe02325, type: 2}
---- !u!114 &5265280371947879549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6387078132584513619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8687a8ee08b44242b2990fd82c896a21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypointsParent: {fileID: 0}
-  waypoints: []

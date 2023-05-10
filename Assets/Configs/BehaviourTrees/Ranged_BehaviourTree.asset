@@ -33,5 +33,3 @@ MonoBehaviour:
         children: []
       - type: Chimera.AI.GoToEnemyNode
         children: []
-    - type: Chimera.AI.PatrolNode
-      children: []

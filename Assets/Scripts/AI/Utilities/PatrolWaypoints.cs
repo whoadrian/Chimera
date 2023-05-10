@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -10,36 +9,21 @@ namespace Chimera.AI.Utilities
 {
     public class PatrolWaypoints : MonoBehaviour
     {
-        public Transform waypointsParent;
-
-        [HideInInspector] public List<Transform> waypoints;
-
-        private void Awake()
-        {
-            for (int i = 0; i < waypointsParent.childCount; ++i)
-            {
-                waypoints.Add(waypointsParent.GetChild(i));
-            }
-        }
+        public List<Transform> waypoints;
 
 #if UNITY_EDITOR
 
         private void OnDrawGizmos()
         {
-            if (waypointsParent == null || waypointsParent.childCount == 0)
-            {
-                return;
-            }
-
             Handles.color = Color.blue;
-            for (int i = 1; i < waypointsParent.childCount; ++i)
+            for (int i = 1; i < waypoints.Count; ++i)
             {
-                Handles.DrawLine(waypointsParent.GetChild(i - 1).position, waypointsParent.GetChild(i).position);
+                Handles.DrawLine(waypoints[i - 1].position, waypoints[i].position);
             }
 
-            if (waypointsParent.childCount > 1)
+            if (waypoints.Count > 1)
             {
-                Handles.DrawLine(waypointsParent.GetChild(waypointsParent.childCount - 1).position, waypointsParent.GetChild(0).position);
+                Handles.DrawLine(waypoints[waypoints.Count - 1].position, waypoints[0].position);
             }
         }
 
