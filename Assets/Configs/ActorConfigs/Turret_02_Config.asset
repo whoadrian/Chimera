@@ -20,7 +20,7 @@ MonoBehaviour:
   deathParticles: {fileID: 7116576133797462123, guid: 159f14db97d02a743809e6943a911258,
     type: 3}
   walkSpeed: 0
-  angularSpeed: 180
+  angularSpeed: 50
   patrolWaitTime: 0
   walkAnimBool: 
   attackAnimBool: Attack
