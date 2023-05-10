@@ -15,6 +15,11 @@ namespace Chimera.AI.Utilities
 
         private void OnDrawGizmos()
         {
+            if (waypoints == null)
+            {
+                return;
+            }
+            
             Handles.color = Color.blue;
             for (int i = 1; i < waypoints.Count; ++i)
             {
