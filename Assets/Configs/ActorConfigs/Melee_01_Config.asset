@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3239b761610790f47a1fafcae13643e0, type: 3}
   m_Name: Melee_01_Config
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 220
   damage: 7
   fovRange: 22
   attackRange: 2.2
