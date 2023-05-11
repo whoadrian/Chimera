@@ -16,7 +16,7 @@ namespace Chimera
         // Game states. Index points to the respective scenes in the Build Scenes list
         public enum State
         {
-            None = -1,
+            None = 0,
             MainMenu,
             Playing,
             Paused,
@@ -27,6 +27,11 @@ namespace Chimera
         private State _currentState = State.None;
         public State CurrentState
         {
+            get
+            {
+                return _currentState;
+            }
+            
             set
             {
                 // Already in this state

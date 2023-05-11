@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3239b761610790f47a1fafcae13643e0, type: 3}
   m_Name: Range_02_Config
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 150
   damage: 10
   fovRange: 25
   attackRange: 23

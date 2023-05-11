@@ -47,6 +47,12 @@ namespace Chimera
 
         private void Update()
         {
+            // Only update when playing
+            if (GameState.Instance != null && GameState.Instance.CurrentState != GameState.State.Playing)
+            {
+                return;
+            }
+            
             // Selection not active
             if (!_selectionActive)
             {

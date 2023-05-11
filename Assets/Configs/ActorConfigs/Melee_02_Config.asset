@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3239b761610790f47a1fafcae13643e0, type: 3}
   m_Name: Melee_02_Config
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 150
   damage: 12
   fovRange: 22
   attackRange: 2
@@ -20,7 +20,7 @@ MonoBehaviour:
   deathParticles: {fileID: 6765323809701106583, guid: 973a2ded1fc6d624fb606d720510743d,
     type: 3}
   excludeFromWinLoseState: 0
-  walkSpeed: 5
+  walkSpeed: 7
   angularSpeed: 180
   patrolWaitTime: 1
   walkAnimBool: Walk

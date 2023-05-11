@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3239b761610790f47a1fafcae13643e0, type: 3}
   m_Name: Turret_01_Config
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 150
   damage: 10
-  fovRange: 30
-  attackRange: 30
+  fovRange: 35
+  attackRange: 35
   projectileSpeed: 50
   deathParticles: {fileID: 5994125468699404308, guid: 932d75a164a54824b8b3b42ada6a6aa9,
     type: 3}
