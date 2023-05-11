@@ -37,7 +37,7 @@ namespace Chimera.AI
                 }
                 
                 // Check if destination has been reached
-                if (Vector3.Distance(_tree.actor.transform.position, moveToPos) < 0.5f)
+                if (Vector3.Distance(_tree.actor.transform.position, moveToPos) < 1.0f)
                 {
                     // Destination reached, remove move command data from context
                     _tree.SetCommandContext(Context.Commands.MoveToCommandKey, null);

@@ -18,6 +18,8 @@ namespace Chimera.AI
             var enemyTarget = (Transform)_tree.GetNodesContext(Context.Nodes.EnemyTargetKey);
             if (enemyTarget == null)
             {
+                _tree.actor.navMeshAgent.SetDestination(_tree.actor.transform.position);
+            
                 // No enemy
                 _state = State.Failure;
                 return _state;

@@ -45,6 +45,13 @@ namespace Chimera.AI
             }
             else // We are walking towards patrol point
             {
+                // Make sure we are walking toward our patrol point
+                if (_tree.actor.navMeshAgent.destination !=
+                    _waypointsBehaviour.waypoints[_currentWaypointIndex].position)
+                {
+                    _tree.actor.navMeshAgent.SetDestination(_waypointsBehaviour.waypoints[_currentWaypointIndex].position);
+                }
+                
                 // Set walk animation
                 _tree.actor.animator.SetBool(_tree.actor.config.walkAnimBool, true);
                 
