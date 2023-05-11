@@ -10,6 +10,7 @@ namespace Chimera.AI
     public class EnemyVisibleCheckNode : Node
     {
         private Transform _actorTransform;
+        private Collider[] _collisionResults;
 
         public EnemyVisibleCheckNode(BehaviourTree tree) : base(tree)
         {
@@ -23,11 +24,12 @@ namespace Chimera.AI
             if (enemyTarget == null)
             {
                 // No enemy, check for enemies within fov range
-                var colliders =
-                    Physics.OverlapSphere(_actorTransform.position, _tree.actor.config.fovRange, Layers.ActorLayerMask);
-                
-                foreach (var c in colliders)
+                var size = Physics.OverlapSphereNonAlloc(_actorTransform.position, _tree.actor.config.fovRange, _collisionResults, Layers.ActorLayerMask);
+
+                for (int i = 0; i < size; ++i)
                 {
+                    var c = _collisionResults[i];
+                    
                     // Check navmesh visibility
                     if (NavMesh.Raycast(_tree.actor.transform.position, c.transform.position, out _,
                             Layers.DefaultLayerMask))
