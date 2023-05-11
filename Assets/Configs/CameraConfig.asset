@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 30
   moveSmoothing: 5
-  rotationSpeed: 50
+  rotationSpeed: 5
   rotationSmoothing: 10
   rotationMouseSensitivity: 0.2
   rotationMouseInvert: 1
-  zoomSpeed: 25
+  zoomSpeed: 15
   zoomSmoothing: 10
   zoomScrollSensitivity: 2
   minZoomSize: 5
