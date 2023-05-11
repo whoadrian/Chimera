@@ -5,28 +5,50 @@ using UnityEngine.AI;
 namespace Chimera.AI
 {
     /// <summary>
-    /// Checks if current enemy is within the fov range. If there is no enemy, will try to find one within the fov range.
+    /// Tries to find the closest enemy within the field-of-view range.
+    /// Does nothing if we already have an enemy target.
     /// </summary>
     public class EnemyVisibleCheckNode : Node
     {
-        private Transform _actorTransform;
+        // re-usable collider buffer for non-alloc physics check.
+        // since we're running on a single thread, static is fine
+        private static Collider[] _colliderBuffer = new Collider[32];
 
         public EnemyVisibleCheckNode(BehaviourTree tree) : base(tree)
         {
-            _actorTransform = _tree.actor.transform;
         }
 
         public override State Evaluate()
         {
             // Get existing enemy from context
             var enemyTarget = (Transform)_tree.GetNodesContext(Context.Nodes.EnemyTargetKey);
-            if (enemyTarget == null)
+            if (enemyTarget != null)
             {
-                // No enemy, check for enemies within fov range
-                var colliders =
-                    Physics.OverlapSphere(_actorTransform.position, _tree.actor.config.fovRange, Layers.ActorLayerMask);
+                // We already have an enemy in the context
+                _state = State.Success;
+                return _state;
+            }
+
+            // No enemy, check for enemies within fov range
+            var size = Physics.OverlapSphereNonAlloc(_tree.actor.transform.position, _tree.actor.config.fovRange,
+                _colliderBuffer, Layers.ActorLayerMask);
+
+            var minSqrDistance = float.MaxValue;
+
+            for (var i = 0; i < size; ++i)
+            {
+                var c = _colliderBuffer[i];
+
+                // Check if object is an actor
+                var otherActorBehaviour = c.GetComponent<Actor>();
+                if (otherActorBehaviour == null)
+                {
+                    continue;
+                }
                 
-                foreach (var c in colliders)
+                // Check if actor belongs to other faction, and is closest
+                var sqrDistance = Vector3.SqrMagnitude(_tree.actor.transform.position - c.transform.position);
+                if (otherActorBehaviour.faction != _tree.actor.faction && sqrDistance < minSqrDistance)
                 {
                     // Check navmesh visibility
                     if (NavMesh.Raycast(_tree.actor.transform.position, c.transform.position, out _,
@@ -35,31 +57,21 @@ namespace Chimera.AI
                         continue;
                     }
                     
-                    // Check if object is an actor
-                    var otherActorBehaviour = c.GetComponent<Actor>();
-                    if (otherActorBehaviour == null)
-                    {
-                        continue;
-                    }
-
-                    // Check if actor belongs to other faction
-                    if (otherActorBehaviour.faction != _tree.actor.faction)
-                    {
-                        // Enemy found, store in context
-                        _tree.SetNodesContext(Context.Nodes.EnemyTargetKey, otherActorBehaviour.transform);
-
-                        _state = State.Success;
-                        return _state;
-                    }
+                    // Enemy found, store in context
+                    _tree.SetNodesContext(Context.Nodes.EnemyTargetKey, otherActorBehaviour.transform);
+                    minSqrDistance = sqrDistance;
                 }
+            }
 
-                // No enemy found
-                _state = State.Failure;
+            // Enemy was found
+            if (minSqrDistance < float.MaxValue)
+            {
+                _state = State.Success;
                 return _state;
             }
-            
-            // We already have an enemy in the context
-            _state = State.Success;
+
+            // No enemy found
+            _state = State.Failure;
             return _state;
         }
     }
