@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Chimera
 {
+    /// <summary>
+    /// Camera movement settings.
+    /// </summary>
     [CreateAssetMenu(menuName = "Chimera/Camera/Camera Config", fileName = "CameraConfig")]
     public class CameraConfig : ScriptableObject
     {

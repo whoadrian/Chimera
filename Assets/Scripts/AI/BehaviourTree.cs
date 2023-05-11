@@ -5,22 +5,41 @@ using UnityEngine;
 
 namespace Chimera.AI
 {
+    /// <summary>
+    /// Behaviour tree for actors. Constructs a behaviour tree from a BehaviourTreeBlueprint and registers it to
+    /// the BehaviourTreeRunner.
+    /// </summary>
     [RequireComponent(typeof(Actor))]
     public class BehaviourTree : MonoBehaviour, IControllable
     {
+        // The blueprint out of which this tree is constructed
         public BehaviourTreeBlueprint blueprint;
 
+        // Our main actor for this tree
         [HideInInspector] public Actor actor;
+        
+        // Root node of tree
         private Node _root;
+        
+        // Context data for use within nodes
         private Dictionary<string, object> _nodesContext = new();
+        
+        // Context data for player-issued commands
         private KeyValuePair<string, object> _commandContext = new(string.Empty, null);
+        
+        // Tree unique id
         private int _id = BehaviourTreeRunner.InvalidId;
 
+        #region MonoBehaviour
+        
         private void Start()
         {
             actor = GetComponent<Actor>();
+            
+            // Build behaviour tree
             _root = BuildTree(blueprint.root, this);
 
+            // Register to BehaviourTreeRunner instance
             if (BehaviourTreeRunner.Instance)
             {
                 _id = BehaviourTreeRunner.Instance.RegisterBehaviourTree(this);
@@ -29,44 +48,66 @@ namespace Chimera.AI
 
         private void OnDestroy()
         {
+            // Unregister from BehaviourTreeRunner instance
             if (_id != BehaviourTreeRunner.InvalidId)
             {
                 BehaviourTreeRunner.Instance.UnregisterBehaviourTree(_id);
             }
         }
+        
+        #endregion
 
         public void Evaluate()
         {
-            SetNodesContext(Context.Nodes.DestinationKey, null);
-            
-            if (actor.config.attackAnimBool != string.Empty)
-            {
-                actor.animator.SetBool(actor.config.attackAnimBool, false);
+            { // Prepare data for evaluation
+                
+                // Reset destination position context
+                SetNodesContext(Context.Nodes.DestinationKey, null);
+                
+                // Disable attack animation
+                if (actor.config.attackAnimBool != string.Empty)
+                {
+                    actor.animator.SetBool(actor.config.attackAnimBool, false);
+                }
+
+                // Disable walk animation
+                if (actor.config.walkAnimBool != string.Empty)
+                {
+                    actor.animator.SetBool(actor.config.walkAnimBool, false);
+                }
             }
 
-            if (actor.config.walkAnimBool != string.Empty)
-            {
-                actor.animator.SetBool(actor.config.walkAnimBool, false);
-            }
-
+            // Evaluate tree
             _root?.Evaluate();
         }
 
+        /// <summary>
+        /// Set data in the player-issued command context. This will replace any existing command data.
+        /// </summary>
         public void SetCommandContext(string key, object value)
         {
             _commandContext = new KeyValuePair<string, object>(key, value);
         }
 
+        /// <summary>
+        /// Get player-issued command data.
+        /// </summary>
         public object GetCommandContext(string key)
         {
             return _commandContext.Key == key ? _commandContext.Value : null;
         }
         
+        /// <summary>
+        /// Set data in the nodes context, to be used by other nodes. Will only replace any data with the same key.
+        /// </summary>
         public void SetNodesContext(string key, object value)
         {
             _nodesContext[key] = value;
         }
 
+        /// <summary>
+        /// Get data from the nodes context, if any. Returns null if not existing.
+        /// </summary>
         public object GetNodesContext(string key)
         {
             if (_nodesContext.TryGetValue(key, out var value))
@@ -77,6 +118,9 @@ namespace Chimera.AI
             return null;
         }
 
+        /// <summary>
+        /// Builds the tree recursively from the BehaviourTreeBlueprint
+        /// </summary>
         private static Node BuildTree(NodeBlueprint parent, BehaviourTree tree)
         {
             var parentNode = BuildNode(parent.type, tree);
@@ -90,6 +134,9 @@ namespace Chimera.AI
             return parentNode;
         }
 
+        /// <summary>
+        /// Builds a node from the BehaviourTreeBlueprint data.
+        /// </summary>
         private static Node BuildNode(string nodeTypeName, BehaviourTree tree)
         {
             if (nodeTypeName == string.Empty)
@@ -113,11 +160,13 @@ namespace Chimera.AI
 
         public void OnMoveCommand(Vector3 destination)
         {
+            // Set player-issued command context
             SetCommandContext(Context.Commands.MoveToCommandKey, destination);
         }
 
         public void OnAttackCommand(Actor actor)
         {
+            // Set player-issued command context
             SetCommandContext(Context.Commands.AttackCommandKey, actor.transform);
         }
 

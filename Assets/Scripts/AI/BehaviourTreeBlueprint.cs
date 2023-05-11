@@ -12,6 +12,9 @@ namespace Chimera.AI
         public List<NodeBlueprint> children;
     }
 
+    /// <summary>
+    /// Blueprint for behaviour trees, used for building the actual trees running the actor behaviours.
+    /// </summary>
     [CreateAssetMenu(menuName = "Chimera/Actors/AI/Behaviour Tree Blueprint", fileName = "BehaviourTreeBlueprint")]
     public class BehaviourTreeBlueprint : ScriptableObject
     {

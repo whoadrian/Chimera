@@ -8,6 +8,9 @@ namespace Chimera.Combat
         Blue
     }
     
+    /// <summary>
+    /// Interface implemented by any actor that participates in combat. Combat-related settings and callbacks.
+    /// </summary>
     public interface ICombatant
     {
         public Faction Faction { get; }

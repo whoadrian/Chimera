@@ -1,16 +1,24 @@
-using System;
 using Chimera.Pooling;
 using UnityEngine;
 
 namespace Chimera.Combat
 {
+    /// <summary>
+    /// Pooled component that deals damage to any enemy ICombatant components.
+    /// </summary>
+    [RequireComponent(typeof(Collider))]
     public class DamageArea : MonoBehaviour, IPoolable
     {
+        // How long does this object lives?
         public float lifetime = 0.2f;
-        
+
+        private float _spawnTime = 0;
+
+        // Combat data
         private float _damage = 10;
         private Faction _faction;
-        private float _spawnTime = 0;
+
+        #region MonoBehaviour
 
         private void Awake()
         {
@@ -19,23 +27,31 @@ namespace Chimera.Combat
 
         private void OnTriggerEnter(Collider other)
         {
+            // Check if other combatant is detected
             var victim = other.GetComponent<ICombatant>();
             if (victim == null || victim.Faction == _faction)
             {
                 return;
             }
 
+            // Deal damage
             victim.DealDamage(_damage);
         }
 
         private void Update()
         {
+            // Lifetime counter
             if (Time.time - _spawnTime > lifetime)
             {
                 gameObject.SetActive(false);
             }
         }
+        
+        #endregion
 
+        /// <summary>
+        /// Initializes damage area.
+        /// </summary>
         public void Setup(float damage, Faction faction)
         {
             _damage = damage;

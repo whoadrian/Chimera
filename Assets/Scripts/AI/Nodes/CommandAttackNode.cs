@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Chimera.AI
 {
+    /// <summary>
+    /// Used when issuing a player-command to this actor. Force-sets an enemy.
+    /// </summary>
     public class CommandAttackNode : Node
     {
         public CommandAttackNode(BehaviourTree tree) : base(tree)
@@ -11,13 +14,18 @@ namespace Chimera.AI
 
         public override State Evaluate()
         {
+            // Check command context for enemy
             var commandData = _tree.GetCommandContext(Context.Commands.AttackCommandKey);
             if (commandData != null)
             {
+                // Get enemy transform
                 var enemy = (Transform)commandData;
                 if (enemy != null)
                 {
+                    // Set context enemy
                     _tree.SetNodesContext(Context.Nodes.EnemyTargetKey, enemy);
+                    
+                    // Remove attack command data from the command context, otherwise this node will keep triggering
                     _tree.SetCommandContext(Context.Commands.AttackCommandKey, null);
                 
                     _state = State.Success;
@@ -25,6 +33,7 @@ namespace Chimera.AI
                 }
             }
             
+            // No enemy
             _state = State.Failure;
             return _state;
         }

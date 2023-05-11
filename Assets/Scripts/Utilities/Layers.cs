@@ -1,5 +1,8 @@
 ﻿namespace Chimera
 {
+    /// <summary>
+    /// Utilities for Unity layers
+    /// </summary>
     public static class Layers
     {
         public static int DefaultLayerMask => 1 << 0;

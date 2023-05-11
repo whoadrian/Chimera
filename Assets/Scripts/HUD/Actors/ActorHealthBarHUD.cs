@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 namespace Chimera
 {
+    /// <summary>
+    /// Manages the health bar above actors. Needs to be a scene child of an actor component.
+    /// </summary>
     public class ActorHealthBarHUD : MonoBehaviour
     {
+        // Children components
         public RectTransform parent;
         public Image healthAmountImg;
 
@@ -19,6 +23,7 @@ namespace Chimera
 
         private void Start()
         {
+            // Set health bar color based on actor faction
             var color = _actor.Faction switch
             {
                 Faction.Red => Color.red,
@@ -32,12 +37,14 @@ namespace Chimera
 
         private void Update()
         {
+            // Rotate towards camera
             var cameraTransform = UnityEngine.Camera.main?.transform;
             if (cameraTransform)
             {
                 parent.rotation = cameraTransform.rotation * Quaternion.Euler(Vector3.up * 180);
             }
 
+            // Set health bar size based on actor's health percentage
             var scale = healthAmountImg.transform.localScale;
             scale.x = _actor.CurrentHealth / _actor.MaxHealth;
             healthAmountImg.transform.localScale = scale;

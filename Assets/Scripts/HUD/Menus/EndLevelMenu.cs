@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Chimera
 {
+    /// <summary>
+    /// End level scene menu callbacks.
+    /// </summary>
     public class EndLevelMenu : MonoBehaviour
     {
         public Action RestartLevel;

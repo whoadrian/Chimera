@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Chimera
 {
+    /// <summary>
+    /// Spawnpoint for the camera, per faction.
+    /// </summary>
     public class CameraSpawnpoint : MonoBehaviour
     {
         public Faction faction;

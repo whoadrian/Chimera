@@ -7,12 +7,16 @@ using UnityEditor;
 
 namespace Chimera.AI.Utilities
 {
+    /// <summary>
+    /// Component used by the PatrolNode inside a behaviour tree, for moving an actor between a list of positions.
+    /// </summary>
     public class PatrolWaypoints : MonoBehaviour
     {
         public List<Transform> waypoints;
 
 #if UNITY_EDITOR
 
+        // Draw the waypoints paths in the editor
         private void OnDrawGizmos()
         {
             if (waypoints == null)
@@ -26,6 +30,7 @@ namespace Chimera.AI.Utilities
                 Handles.DrawLine(waypoints[i - 1].position, waypoints[i].position);
             }
 
+            // Loop
             if (waypoints.Count > 1)
             {
                 Handles.DrawLine(waypoints[waypoints.Count - 1].position, waypoints[0].position);

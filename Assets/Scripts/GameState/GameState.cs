@@ -4,10 +4,16 @@ using UnityEngine.SceneManagement;
 
 namespace Chimera
 {
+    /// <summary>
+    /// Manages the global game state, between MainMenu, Playing, Paused, etc.
+    /// Loads and Unloads the scenes associated with these states.
+    /// </summary>
     public class GameState : MonoBehaviour
     {
+        // Global instance
         public static GameState Instance { get; private set; }
         
+        // Game states. Index points to the respective scenes in the Build Scenes list
         public enum State
         {
             None = -1,
@@ -17,16 +23,19 @@ namespace Chimera
             Exit
         }
 
+        // Current state setter / getter
         private State _currentState = State.None;
         public State CurrentState
         {
             set
             {
+                // Already in this state
                 if (_currentState == value)
                 {
                     return;
                 }
                 
+                // Quit state
                 if (value == State.Exit)
                 {
                     Application.Quit();
@@ -82,6 +91,7 @@ namespace Chimera
 
         private void Start()
         {
+            // Start with main menu
             if (_currentState == State.None)
             {
                 CurrentState = State.MainMenu;
@@ -90,6 +100,7 @@ namespace Chimera
 
         private void Update()
         {
+            // Escape key pauses a running game
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 switch (_currentState)

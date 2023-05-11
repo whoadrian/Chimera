@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace Chimera
 {
+    /// <summary>
+    /// Manages the selection circle under actors. Needs to be a scene child of an actor component.
+    /// </summary>
     public class ActorSelectionHUD : MonoBehaviour
     {
         public Image selectable;
@@ -18,6 +21,7 @@ namespace Chimera
         
         private void Start()
         {
+            // Set selection circle colour based on actor's faction
             Color color;
             switch (_actor.Faction)
             {
@@ -40,6 +44,7 @@ namespace Chimera
 
         private void Update()
         {
+            // Activate the selection circle when actor is selected.
             if (selectable.gameObject.activeSelf != _actor.Selected)
             {
                 selectable.gameObject.SetActive(_actor.Selected);

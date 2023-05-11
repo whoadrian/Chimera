@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Chimera
 {
+    /// <summary>
+    /// Pause/Overlay scene menu callbacks.
+    /// </summary>
     public class OverlayMenu : MonoBehaviour
     {
         private void Start()

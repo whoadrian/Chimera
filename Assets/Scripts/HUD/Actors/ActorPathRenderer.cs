@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Chimera
 {
+    /// <summary>
+    /// Displays a line towards an Actor's destination, taken from its behaviour tree data context.
+    /// Needs to be a scene child of an actor component.
+    /// </summary>
     public class ActorPathRenderer : MonoBehaviour
     {
         public LineRenderer lineRenderer;
@@ -25,12 +29,14 @@ namespace Chimera
                 return;
             }
 
+            // Only display it when actor is selected
             if (!_actor.Selected)
             {
                 lineRenderer.enabled = false;
                 return;
             }
             
+            // Get destination data from the actor's behaviour tree context
             var destinationData = _actorBehaviourTree.GetNodesContext(Context.Nodes.DestinationKey);
             if (destinationData == null)
             {
@@ -38,6 +44,7 @@ namespace Chimera
                 return;
             }
             
+            // Setup line positions
             _linePositions[0] = _actorBehaviourTree.transform.position;
             _linePositions[1] = (Vector3)destinationData;
             _linePositions[1].y = _actorBehaviourTree.transform.position.y;

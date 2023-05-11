@@ -7,25 +7,34 @@ using UnityEditor;
 
 namespace Chimera
 {
+    /// <summary>
+    /// Main Menu logic and UX flow.
+    /// Main Menu scene menu callbacks.
+    /// </summary>
     public class MainMenu : MonoBehaviour
     {
+        // Different menus within the main menu scene are children of this component.
         public GameObject mainMenu;
         public GameObject levelSelect;
         public GameObject factionSelect;
 
+        // Global game data
         public GameConfig gameConfig;
         
         private void Start()
         {
+            // Set first menu
             mainMenu.SetActive(true);
             levelSelect.SetActive(false);
             factionSelect.SetActive(false);
             
+            // Make sure game state is set to main menu
             SetGameState(GameState.State.MainMenu);
         }
         
         public void OnPlayClicked()
         {
+            // Play switches to level select
             mainMenu.SetActive(false);
             levelSelect.SetActive(true);
             factionSelect.SetActive(false);
@@ -60,6 +69,7 @@ namespace Chimera
         {
             GameConfig.Level = levelId;
             
+            // Level selection switches to faction selection screen
             mainMenu.SetActive(false);
             levelSelect.SetActive(false);
             factionSelect.SetActive(true);

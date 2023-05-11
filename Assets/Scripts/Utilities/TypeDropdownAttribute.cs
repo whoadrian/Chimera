@@ -10,6 +10,9 @@ using UnityEditor;
 
 namespace Chimera
 {
+    /// <summary>
+    /// Attribute for displaying a dropdown with children inheriting from a specified class type. Use on a string type.
+    /// </summary>
     public class TypeDropdownAttribute : PropertyAttribute
     {
         public Type type;
@@ -22,6 +25,9 @@ namespace Chimera
 
 #if UNITY_EDITOR
 
+    /// <summary>
+    /// Drawer for the [TypeDropdown] attribute. Uses reflection to find children classes of a specified type, stores them as string.
+    /// </summary>
     [CustomPropertyDrawer(typeof(TypeDropdownAttribute))]
     public class TypeDropdownDrawer : PropertyDrawer
     {
@@ -29,15 +35,18 @@ namespace Chimera
         {
             var typeDropdownAttribute = attribute as TypeDropdownAttribute;
 
+            // Get children of type
             var subclassTypes = Assembly
                 .GetAssembly(typeDropdownAttribute.type)
                 .GetTypes()
                 .Where(t => t.IsSubclassOf(typeDropdownAttribute.type));
             
+            // Build dropdown options, starting with "None"
             var options = new List<String>();
             options.Add("None");
             var selected = 0;
 
+            // Check current selected index
             foreach (var t in subclassTypes)
             {
                 options.Add(t.ToString());
@@ -47,7 +56,10 @@ namespace Chimera
                 }
             }
 
+            // Draw dropdown
             selected = EditorGUI.Popup(position, selected, options.ToArray());
+            
+            // Set dropdown data
             property.stringValue = selected > 0 ? options[selected] : string.Empty;
         }
     }

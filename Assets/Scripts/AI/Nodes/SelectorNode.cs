@@ -1,5 +1,8 @@
 ﻿namespace Chimera.AI
 {
+    /// <summary>
+    /// Similar to an OR gate, stops at first Successful or Running child
+    /// </summary>
     public class SelectorNode : Node
     {
         public SelectorNode(BehaviourTree tree) : base(tree)
@@ -8,6 +11,7 @@
         
         public override State Evaluate()
         {
+            // Similar to an OR gate, stops at first Successful or Running child
             foreach (var childNode in _children)
             {
                 switch (childNode.Evaluate())

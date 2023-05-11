@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Chimera.AI
 {
+    /// <summary>
+    /// Attacks an enemy, if one is present in the nodes context.
+    /// </summary>
     public class AttackNode : Node
     {
         public AttackNode(BehaviourTree tree) : base(tree)
@@ -11,12 +14,17 @@ namespace Chimera.AI
 
         public override State Evaluate()
         {
+            // Check the nodes context for an enemy
             var enemyTarget = (Transform)_tree.GetNodesContext(Context.Nodes.EnemyTargetKey);
             if (enemyTarget == null)
             {
+                // No enemy
                 _state = State.Failure;
                 return _state;
             }
+            
+            // Stop actor
+            _tree.actor.navMeshAgent.SetDestination(_tree.actor.transform.position);
             
             // Face enemy
             var faceDirection = enemyTarget.position - _tree.actor.transform.position;
@@ -24,8 +32,10 @@ namespace Chimera.AI
             _tree.actor.transform.rotation = Quaternion.RotateTowards(_tree.actor.transform.rotation,
                 Quaternion.LookRotation(faceDirection), _tree.actor.config.angularSpeed * Time.deltaTime);
 
-            _tree.actor.navMeshAgent.SetDestination(_tree.actor.transform.position);
+            // Trigger attack animation
             _tree.actor.animator.SetBool(_tree.actor.config.attackAnimBool, true);
+            
+            // Set destination of actor to the enemy
             _tree.SetNodesContext(Context.Nodes.DestinationKey, enemyTarget.position);
             
             _state = State.Running;
