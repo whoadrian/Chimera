@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace Chimera
@@ -11,12 +10,12 @@ namespace Chimera
     public class LevelsConfig : ScriptableObject
     {
         // Win scene to be loaded when player has won
-        public SceneAsset winScene;
+        public string winScene;
         
         // Lose scene to be loaded when player has lost
-        public SceneAsset loseScene;
+        public string loseScene;
         
         // All levels
-        public List<SceneAsset> levels;
+        public List<string> levels;
     }
 }

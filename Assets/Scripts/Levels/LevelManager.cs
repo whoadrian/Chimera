@@ -33,7 +33,7 @@ namespace Chimera
         private void LoadLevel(int levelIndex)
         {
             // Async load
-            var asyncLoader = SceneManager.LoadSceneAsync(levelsConfig.levels[levelIndex].name, new LoadSceneParameters(LoadSceneMode.Additive));
+            var asyncLoader = SceneManager.LoadSceneAsync(levelsConfig.levels[levelIndex], new LoadSceneParameters(LoadSceneMode.Additive));
             asyncLoader.completed += OnLevelLoaded;
         }
 
@@ -58,6 +58,11 @@ namespace Chimera
         
         private void OnLevelFinished(bool winState)
         {
+            if (GameState.Instance && GameState.Instance.CurrentState != GameState.State.Playing)
+            {
+                return;
+            }
+            
             _currentLevel.OnLevelFinished = null;
 
             // Unload current level
@@ -65,7 +70,7 @@ namespace Chimera
             _currentLevel = null;
 
             // Load win/lose scene
-            var asyncLoader = SceneManager.LoadSceneAsync(winState ? levelsConfig.winScene.name : levelsConfig.loseScene.name, new LoadSceneParameters(LoadSceneMode.Additive));
+            var asyncLoader = SceneManager.LoadSceneAsync(winState ? levelsConfig.winScene : levelsConfig.loseScene, new LoadSceneParameters(LoadSceneMode.Additive));
             if (asyncLoader != null)
             {
                 asyncLoader.completed += OnEndLevelSceneLoaded;

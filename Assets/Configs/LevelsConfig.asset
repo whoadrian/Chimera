@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aab64cc9e8469e449a5a39bcd27717b, type: 3}
   m_Name: LevelsConfig
   m_EditorClassIdentifier: 
-  winScene: {fileID: 102900000, guid: 12f6622402aa27343bb9606776beb647, type: 3}
-  loseScene: {fileID: 102900000, guid: bffdcddf54518d34b88340fcf6d064ac, type: 3}
+  winScene: WinMenu
+  loseScene: LoseMenu
   levels:
-  - {fileID: 102900000, guid: e4922189276b57f42bffdfcf9d65c8cd, type: 3}
-  - {fileID: 102900000, guid: d568d037edd945a408fcd7620058e468, type: 3}
+  - Level_Desert
+  - Level_Island
