@@ -12,7 +12,8 @@ namespace Chimera.AI
 
         [HideInInspector] public Actor actor;
         private Node _root;
-        private Dictionary<string, object> _context = new();
+        private Dictionary<string, object> _nodesContext = new();
+        private KeyValuePair<string, object> _commandContext = new(string.Empty, null);
         private int _id = BehaviourTreeRunner.InvalidId;
 
         private void Start()
@@ -36,7 +37,7 @@ namespace Chimera.AI
 
         public void Evaluate()
         {
-            SetContext(Context.DestinationKey, null);
+            SetNodesContext(Context.Nodes.DestinationKey, null);
             
             if (actor.config.attackAnimBool != string.Empty)
             {
@@ -50,15 +51,25 @@ namespace Chimera.AI
 
             _root?.Evaluate();
         }
-        
-        public void SetContext(string key, object value)
+
+        public void SetCommandContext(string key, object value)
         {
-            _context[key] = value;
+            _commandContext = new KeyValuePair<string, object>(key, value);
         }
 
-        public object GetContext(string key)
+        public object GetCommandContext(string key)
         {
-            if (_context.TryGetValue(key, out var value))
+            return _commandContext.Key == key ? _commandContext.Value : null;
+        }
+        
+        public void SetNodesContext(string key, object value)
+        {
+            _nodesContext[key] = value;
+        }
+
+        public object GetNodesContext(string key)
+        {
+            if (_nodesContext.TryGetValue(key, out var value))
             {
                 return value;
             }
@@ -102,12 +113,12 @@ namespace Chimera.AI
 
         public void OnMoveCommand(Vector3 destination)
         {
-            SetContext(Context.MoveToCommandKey, destination);
+            SetCommandContext(Context.Commands.MoveToCommandKey, destination);
         }
 
         public void OnAttackCommand(Actor actor)
         {
-            SetContext(Context.AttackCommandKey, actor.transform);
+            SetCommandContext(Context.Commands.AttackCommandKey, actor.transform);
         }
 
         #endregion

@@ -31,7 +31,7 @@ namespace Chimera
                 return;
             }
             
-            var destinationData = _actorBehaviourTree.GetContext(Context.DestinationKey);
+            var destinationData = _actorBehaviourTree.GetNodesContext(Context.Nodes.DestinationKey);
             if (destinationData == null)
             {
                 lineRenderer.enabled = false;
@@ -40,6 +40,7 @@ namespace Chimera
             
             _linePositions[0] = _actorBehaviourTree.transform.position;
             _linePositions[1] = (Vector3)destinationData;
+            _linePositions[1].y = _actorBehaviourTree.transform.position.y;
 
             if (Vector3.SqrMagnitude(_linePositions[0] - _linePositions[1]) < 1)
             {

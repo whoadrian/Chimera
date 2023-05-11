@@ -11,20 +11,20 @@ namespace Chimera.AI
 
         public override State Evaluate()
         {
-            if (_tree.GetContext(Context.AttackCommandKey) != null)
+            var commandData = _tree.GetCommandContext(Context.Commands.AttackCommandKey);
+            if (commandData != null)
             {
-                var enemyTransform = (Transform)_tree.GetContext(Context.AttackCommandKey);
-                if (enemyTransform != null)
+                var enemy = (Transform)commandData;
+                if (enemy != null)
                 {
-                    _tree.SetContext(Context.EnemyTargetKey, enemyTransform);
-                    _tree.SetContext(Context.AttackCommandKey, null);
-                    _tree.SetContext(Context.MoveToCommandKey, null);
-                    
+                    _tree.SetNodesContext(Context.Nodes.EnemyTargetKey, enemy);
+                    _tree.SetCommandContext(Context.Commands.AttackCommandKey, null);
+                
                     _state = State.Success;
                     return _state;
                 }
             }
-
+            
             _state = State.Failure;
             return _state;
         }

@@ -15,7 +15,7 @@ namespace Chimera.AI
 
         public override State Evaluate()
         {
-            var enemyTarget = (Transform)_tree.GetContext(Context.EnemyTargetKey);
+            var enemyTarget = (Transform)_tree.GetNodesContext(Context.Nodes.EnemyTargetKey);
             if (enemyTarget == null)
             {
                 var colliders =
@@ -31,11 +31,13 @@ namespace Chimera.AI
                     
                     var otherActorBehaviour = c.GetComponent<Actor>();
                     if (otherActorBehaviour == null)
+                    {
                         continue;
+                    }
 
                     if (otherActorBehaviour.faction != _tree.actor.faction)
                     {
-                        _tree.SetContext(Context.EnemyTargetKey, otherActorBehaviour.transform);
+                        _tree.SetNodesContext(Context.Nodes.EnemyTargetKey, otherActorBehaviour.transform);
 
                         _state = State.Success;
                         return _state;
