@@ -37,7 +37,7 @@ namespace Chimera
             }
             
             // Get destination data from the actor's behaviour tree context
-            var destinationData = _actorBehaviourTree.GetNodesContext(Context.Nodes.DestinationKey);
+            var destinationData = _actorBehaviourTree.GetNodesContext(Context.NodeKey.Destination);
             if (destinationData == null)
             {
                 lineRenderer.enabled = false;

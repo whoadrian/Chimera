@@ -16,7 +16,7 @@ namespace Chimera.AI
         public override State Evaluate()
         {
             // Get enemy from context
-            var enemyTarget = (Transform)_tree.GetNodesContext(Context.Nodes.EnemyTargetKey);
+            var enemyTarget = (Transform)_tree.GetNodesContext(Context.NodeKey.EnemyTarget);
             
             // Check if enemy is within attack range and visible on the navmesh
             if (enemyTarget != null &&

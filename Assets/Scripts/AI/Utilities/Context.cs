@@ -8,19 +8,21 @@
         /// <summary>
         /// Behaviour tree nodes context keys, for sharing data between nodes.
         /// </summary>
-        public struct Nodes
+        public enum NodeKey
         {
-            public static string EnemyTargetKey => "enemyTarget";
-            public static string DestinationKey => "destination";
+            None = 0,
+            EnemyTarget,
+            Destination
         }
         
         /// <summary>
         /// Behaviour tree command context keys, for player-issued commands.
         /// </summary>
-        public struct Commands
+        public enum CommandKey
         {
-            public static string MoveToCommandKey => "moveToCmd";
-            public static string AttackCommandKey => "attackCmd";
+            None = 0,
+            MoveToCommand,
+            AttackCommand
         }
     }
 }

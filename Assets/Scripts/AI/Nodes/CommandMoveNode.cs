@@ -15,7 +15,7 @@ namespace Chimera.AI
         public override State Evaluate()
         {
             // Check command context for move command
-            var commandData = _tree.GetCommandContext(Context.Commands.MoveToCommandKey);
+            var commandData = _tree.GetCommandContext(Context.CommandKey.MoveToCommand);
             if (commandData != null)
             {
                 // Get move to position
@@ -25,10 +25,10 @@ namespace Chimera.AI
                 _tree.actor.animator.SetBool(_tree.actor.config.walkAnimBool, true);
                 
                 // Set destination context
-                _tree.SetNodesContext(Context.Nodes.DestinationKey, moveToPos);
+                _tree.SetNodesContext(Context.NodeKey.Destination, moveToPos);
                 
                 // Remove any enemy data. This player-command makes the actor forget of any enemy.
-                _tree.SetNodesContext(Context.Nodes.EnemyTargetKey, null);
+                _tree.SetNodesContext(Context.NodeKey.EnemyTarget, null);
                 
                 // Set agent destination on the navmesh
                 if (_tree.actor.navMeshAgent.destination != moveToPos)
@@ -37,10 +37,10 @@ namespace Chimera.AI
                 }
                 
                 // Check if destination has been reached
-                if (Vector3.Distance(_tree.actor.transform.position, moveToPos) < 1.0f)
+                if (Vector3.Distance(_tree.actor.transform.position, moveToPos) < 1.5f)
                 {
                     // Destination reached, remove move command data from context
-                    _tree.SetCommandContext(Context.Commands.MoveToCommandKey, null);
+                    _tree.SetCommandContext(Context.CommandKey.MoveToCommand, null);
                     
                     _state = State.Success;
                     return _state;

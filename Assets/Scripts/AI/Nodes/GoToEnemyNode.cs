@@ -15,7 +15,7 @@ namespace Chimera.AI
         public override State Evaluate()
         {
             // Check for existing enemy in the context
-            var enemyTarget = (Transform)_tree.GetNodesContext(Context.Nodes.EnemyTargetKey);
+            var enemyTarget = (Transform)_tree.GetNodesContext(Context.NodeKey.EnemyTarget);
             if (enemyTarget == null)
             {
                 _tree.actor.navMeshAgent.SetDestination(_tree.actor.transform.position);
@@ -35,7 +35,7 @@ namespace Chimera.AI
             _tree.actor.animator.SetBool(_tree.actor.config.walkAnimBool, true);
             
             // Set destination context
-            _tree.SetNodesContext(Context.Nodes.DestinationKey, enemyTarget.position);
+            _tree.SetNodesContext(Context.NodeKey.Destination, enemyTarget.position);
 
             _state = State.Running;
             return _state;

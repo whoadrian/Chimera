@@ -25,10 +25,14 @@ MonoBehaviour:
       children:
       - type: Chimera.AI.EnemyAttackableCheckNode
         children: []
+      - type: Chimera.AI.StopMovementNode
+        children: []
       - type: Chimera.AI.AttackNode
         children: []
     - type: Chimera.AI.SequenceNode
       children:
+      - type: Chimera.AI.StopMovementNode
+        children: []
       - type: Chimera.AI.EnemyVisibleCheckNode
         children: []
       - type: Chimera.AI.GoToEnemyNode

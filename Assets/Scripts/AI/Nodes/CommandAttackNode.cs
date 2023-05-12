@@ -15,7 +15,7 @@ namespace Chimera.AI
         public override State Evaluate()
         {
             // Check command context for enemy
-            var commandData = _tree.GetCommandContext(Context.Commands.AttackCommandKey);
+            var commandData = _tree.GetCommandContext(Context.CommandKey.AttackCommand);
             if (commandData != null)
             {
                 // Get enemy transform
@@ -23,10 +23,10 @@ namespace Chimera.AI
                 if (enemy != null)
                 {
                     // Set context enemy
-                    _tree.SetNodesContext(Context.Nodes.EnemyTargetKey, enemy);
+                    _tree.SetNodesContext(Context.NodeKey.EnemyTarget, enemy);
                     
                     // Remove attack command data from the command context, otherwise this node will keep triggering
-                    _tree.SetCommandContext(Context.Commands.AttackCommandKey, null);
+                    _tree.SetCommandContext(Context.CommandKey.AttackCommand, null);
                 
                     _state = State.Success;
                     return _state;

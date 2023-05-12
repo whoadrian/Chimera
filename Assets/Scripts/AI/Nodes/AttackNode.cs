@@ -15,16 +15,13 @@ namespace Chimera.AI
         public override State Evaluate()
         {
             // Check the nodes context for an enemy
-            var enemyTarget = (Transform)_tree.GetNodesContext(Context.Nodes.EnemyTargetKey);
+            var enemyTarget = (Transform)_tree.GetNodesContext(Context.NodeKey.EnemyTarget);
             if (enemyTarget == null)
             {
                 // No enemy
                 _state = State.Failure;
                 return _state;
             }
-            
-            // Stop actor
-            _tree.actor.navMeshAgent.SetDestination(_tree.actor.transform.position);
             
             // Face enemy
             var faceDirection = enemyTarget.position - _tree.actor.transform.position;
@@ -36,7 +33,7 @@ namespace Chimera.AI
             _tree.actor.animator.SetBool(_tree.actor.config.attackAnimBool, true);
             
             // Set destination of actor to the enemy
-            _tree.SetNodesContext(Context.Nodes.DestinationKey, enemyTarget.position);
+            _tree.SetNodesContext(Context.NodeKey.Destination, enemyTarget.position);
             
             _state = State.Running;
             return _state;

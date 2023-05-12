@@ -22,10 +22,10 @@ namespace Chimera.AI
         private Node _root;
         
         // Context data for use within nodes
-        private Dictionary<string, object> _nodesContext = new();
+        private Dictionary<Context.NodeKey, object> _nodesContext = new();
         
         // Context data for player-issued commands
-        private KeyValuePair<string, object> _commandContext = new(string.Empty, null);
+        private KeyValuePair<Context.CommandKey, object> _commandContext = new(Context.CommandKey.None, null);
         
         // Tree unique id
         private int _id = BehaviourTreeRunner.InvalidId;
@@ -62,7 +62,7 @@ namespace Chimera.AI
             { // Prepare data for evaluation
                 
                 // Reset destination position context
-                SetNodesContext(Context.Nodes.DestinationKey, null);
+                SetNodesContext(Context.NodeKey.Destination, null);
                 
                 // Disable attack animation
                 if (actor.config.attackAnimBool != string.Empty)
@@ -84,15 +84,15 @@ namespace Chimera.AI
         /// <summary>
         /// Set data in the player-issued command context. This will replace any existing command data.
         /// </summary>
-        public void SetCommandContext(string key, object value)
+        public void SetCommandContext(Context.CommandKey key, object value)
         {
-            _commandContext = new KeyValuePair<string, object>(key, value);
+            _commandContext = new KeyValuePair<Context.CommandKey, object>(key, value);
         }
 
         /// <summary>
         /// Get player-issued command data.
         /// </summary>
-        public object GetCommandContext(string key)
+        public object GetCommandContext(Context.CommandKey key)
         {
             return _commandContext.Key == key ? _commandContext.Value : null;
         }
@@ -100,7 +100,7 @@ namespace Chimera.AI
         /// <summary>
         /// Set data in the nodes context, to be used by other nodes. Will only replace any data with the same key.
         /// </summary>
-        public void SetNodesContext(string key, object value)
+        public void SetNodesContext(Context.NodeKey key, object value)
         {
             _nodesContext[key] = value;
         }
@@ -108,7 +108,7 @@ namespace Chimera.AI
         /// <summary>
         /// Get data from the nodes context, if any. Returns null if not existing.
         /// </summary>
-        public object GetNodesContext(string key)
+        public object GetNodesContext(Context.NodeKey key)
         {
             if (_nodesContext.TryGetValue(key, out var value))
             {
@@ -161,13 +161,13 @@ namespace Chimera.AI
         public void OnMoveCommand(Vector3 destination)
         {
             // Set player-issued command context
-            SetCommandContext(Context.Commands.MoveToCommandKey, destination);
+            SetCommandContext(Context.CommandKey.MoveToCommand, destination);
         }
 
         public void OnAttackCommand(Actor actor)
         {
             // Set player-issued command context
-            SetCommandContext(Context.Commands.AttackCommandKey, actor.transform);
+            SetCommandContext(Context.CommandKey.AttackCommand, actor.transform);
         }
 
         #endregion

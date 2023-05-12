@@ -12,7 +12,7 @@ namespace Chimera.AI
     {
         // re-usable collider buffer for non-alloc physics check.
         // since we're running on a single thread, static is fine
-        private static Collider[] _colliderBuffer = new Collider[32];
+        private static Collider[] _colliderBuffer = new Collider[256];
 
         public EnemyVisibleCheckNode(BehaviourTree tree) : base(tree)
         {
@@ -21,7 +21,7 @@ namespace Chimera.AI
         public override State Evaluate()
         {
             // Get existing enemy from context
-            var enemyTarget = (Transform)_tree.GetNodesContext(Context.Nodes.EnemyTargetKey);
+            var enemyTarget = (Transform)_tree.GetNodesContext(Context.NodeKey.EnemyTarget);
             if (enemyTarget != null)
             {
                 // We already have an enemy in the context
@@ -58,7 +58,7 @@ namespace Chimera.AI
                     }
                     
                     // Enemy found, store in context
-                    _tree.SetNodesContext(Context.Nodes.EnemyTargetKey, otherActorBehaviour.transform);
+                    _tree.SetNodesContext(Context.NodeKey.EnemyTarget, otherActorBehaviour.transform);
                     minSqrDistance = sqrDistance;
                 }
             }
