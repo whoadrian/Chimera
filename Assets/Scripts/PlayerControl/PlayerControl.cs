@@ -29,6 +29,7 @@ namespace Chimera
 
         private struct SelectableData
         {
+            public Transform transform;
             public ISelectable selectable;
             public IControllable controllable;
         }
@@ -154,7 +155,13 @@ namespace Chimera
         /// </summary>
         private void OnCommand(Vector2 pos)
         {
-            // Raycast all selectables at this position, for attack command check
+            // No units selected, nothing to do
+            if (_selected.Count == 0)
+            {
+                return;
+            }
+            
+            // Attack command. Raycast all selectables at this position.
             var enemySelectables = RaycastSelectables(pos, pos, false);
             if (enemySelectables != null && enemySelectables.Count > 0)
             {
@@ -180,11 +187,63 @@ namespace Chimera
             var posRay = UnityEngine.Camera.main.ScreenPointToRay(pos);
             if (plane.Raycast(posRay, out var enter))
             {
-                // Move command for all selected objects
+                // Move-to position
                 var moveToPos = posRay.GetPoint(enter);
-                foreach (var selected in _selected)
+                
+                // Make units align in a grid at destination (so they don't all try to go to the same exact point)
+                var rows = (int)Mathf.Sqrt(_selected.Count);
+                var columns = _selected.Count / rows + _selected.Count % rows;
+                
+                // Find closest to destination
+                var minDistance = float.MaxValue;
+                var closestPosition = Vector3.zero;
+                foreach (var s in _selected)
                 {
-                    selected.controllable?.OnMoveCommand(moveToPos);
+                    if (s.transform == null)
+                    {
+                        continue;
+                    }
+                    
+                    var sqrDistance = Vector3.SqrMagnitude(moveToPos - s.transform.position);
+                    if (sqrDistance < minDistance)
+                    {
+                        minDistance = sqrDistance;
+                        closestPosition = s.transform.position;
+                    }
+                }
+                
+                // No min distance found, selectables & their transforms by now have been destroyed
+                if (minDistance == float.MaxValue)
+                {
+                    return;
+                }
+                
+                // Get forward and right vectors
+                var forward = Vector3.Normalize(moveToPos - closestPosition);
+                var right = Vector3.Cross(Vector3.up, forward);
+                
+                // Space between grid points
+                const float gridSpacing = 2f;
+                
+                // Get top-left corner pos of destination grid
+                var topLeftPos = moveToPos + forward * ((rows - 1) * gridSpacing * 0.5f) - right * ((columns - 1) * gridSpacing * 0.5f);
+                
+                // Move command for all selected objects
+                int rowIndex = 0;
+                int columnIndex = 0;
+                for (int i = 0; i < _selected.Count; ++i)
+                {
+                    var destinationPos = topLeftPos - forward * (rowIndex * gridSpacing) +
+                                         right * (columnIndex * gridSpacing);
+                    
+                    _selected[i].controllable?.OnMoveCommand(destinationPos);
+
+                    // Increment row & index
+                    rowIndex = (rowIndex + 1) % rows;
+                    if (rowIndex == 0)
+                    {
+                        columnIndex++;
+                    }
                 }
             }
         }
@@ -261,7 +320,7 @@ namespace Chimera
                 }
 
                 // Add
-                selectablesList.Add(new SelectableData() { controllable = controllable, selectable = selectable });
+                selectablesList.Add(new SelectableData() { transform = c.transform, controllable = controllable, selectable = selectable });
             }
 
             return selectablesList;
