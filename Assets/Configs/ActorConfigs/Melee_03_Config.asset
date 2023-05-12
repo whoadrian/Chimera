@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 110
   damage: 4
-  fovRange: 10
+  fovRange: 12
   attackRange: 2.5
   projectileSpeed: 100
   deathParticles: {fileID: 6765323809701106583, guid: 973a2ded1fc6d624fb606d720510743d,
     type: 3}
   excludeFromWinLoseState: 0
-  walkSpeed: 9
+  walkSpeed: 8
   angularSpeed: 180
   patrolWaitTime: 1
   walkAnimBool: Walk
