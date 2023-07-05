@@ -2,7 +2,7 @@
 
 This is an RTS game built in Unity in about 15 hours, spread across 7 days.
 
-A full breakdown of the game with pictures is in the [Design Document PDF](./Design Document.pdf) at the root of the repo.
+A full breakdown of the game with pictures is in the [Design Document PDF](./DesignDocument.pdf) at the root of the repo.
 
 To play it, download the Windows build from the [Builds](./Builds) folder.
 
